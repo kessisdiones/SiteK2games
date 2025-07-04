@@ -75,7 +75,7 @@
 
 /* A TABELA EM SI, que fica DENTRO da "janela" */
 .history-table {
-  width: 100%;
+  width: 95%;
   border-collapse: collapse;
   table-layout: fixed; /* Força distribuição equilibrada das colunas */
   word-wrap: break-word;
