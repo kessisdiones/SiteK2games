@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações - GameCash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="configuracoes.css" />
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="header-left">
+        <button class="icon-btn" id="mobile-menu-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="header-center">
+        <a href="" class="dashboard-logo">
+          <img src="Imagens/Logo.svg" alt="Logo da GameCash" />
+        </a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+        <span class="online-count" id="online-count">12</span>
+        <!-- Valor inicial -->
+      </div>
+    </header>
+    <div class="dashboard-container">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a href="" class="logo"
+            ><img src="Imagens/Logo.svg" alt="Logo da GameCash"
+          /></a>
+          <button class="icon-btn close-sidebar-btn" id="close-sidebar-btn">
+            &times;
+          </button>
+        </div>
+        <div class="sidebar-top">
+          <nav class="sidebar-nav">
+            <ul>
+              <li>
+                <a href="dashboard.html"><span>Início</span></a>
+              </li>
+              <li>
+                <a href="carteira.html"><span>Carteira</span></a>
+              </li>
+              <li>
+                <a href="historico.html"><span>Histórico</span></a>
+              </li>
+              <li class="active">
+                <a href="configuracoes.html"><span>Configurações</span></a>
+              </li>
+              <li>
+                <a href="suporte.html"><span>Suporte</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <div class="profile-info">
+            <img src="Imagens/avatar.png" alt="Avatar" class="profile-avatar" />
+            <span class="profile-name">[Nome do Usuário]</span>
+          </div>
+          <a href="index.html" class="logout-btn"><span>Sair</span></a>
+        </div>
+      </aside>
+      <div class="sidebar-overlay hidden" id="sidebar-overlay"></div>
+
+      <main class="dashboard-main-content">
+        <header class="wallet-header">
+          <h1>Configurações da Conta</h1>
+        </header>
+
+        <form id="settings-form">
+          <section class="settings-section">
+            <h2>Perfil</h2>
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="nickname">Apelido</label>
+                <input
+                  type="text"
+                  id="nickname"
+                  name="nickname"
+                  value="[Apelido Atual]"
+                />
+              </div>
+              <div class="input-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value="[email@atual.com]"
+                  disabled
+                />
+                <p class="info-text">O email não pode ser alterado.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h2>Alterar Senha</h2>
+            <div class="form-grid">
+              <div class="input-group">
+                <label for="current-password">Senha Atual</label>
+                <input
+                  type="password"
+                  id="current-password"
+                  name="current-password"
+                />
+              </div>
+              <div class="input-group">
+                <label for="new-password">Nova Senha</label>
+                <input type="password" id="new-password" name="new-password" />
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <h2>Notificações</h2>
+            <div class="notification-item">
+              <p>Receber notificações por e-mail sobre partidas e depósitos.</p>
+              <label class="toggle-switch">
+                <input type="checkbox" id="email-notifications" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save-changes">
+              Salvar Alterações
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

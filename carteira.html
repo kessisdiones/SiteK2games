@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carteira - GameCash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="carteira.css" />
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="header-left">
+        <button class="icon-btn" id="mobile-menu-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="header-center">
+        <a href="" class="dashboard-logo">
+          <img src="Imagens/Logo.svg" alt="Logo da GameCash" />
+        </a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+        <span class="online-count" id="online-count">12</span>
+        <!-- Valor inicial -->
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a href="" class="logo"
+            ><img src="Imagens/Logo.svg" alt="Logo da GameCash"
+          /></a>
+          <button class="icon-btn close-sidebar-btn" id="close-sidebar-btn">
+            &times;
+          </button>
+        </div>
+        <div class="sidebar-top">
+          <nav class="sidebar-nav">
+            <ul>
+              <li>
+                <a href="dashboard.html"><span>Início</span></a>
+              </li>
+              <li class="active">
+                <a href="carteira.html"><span>Carteira</span></a>
+              </li>
+              <li>
+                <a href="historico.html"><span>Histórico</span></a>
+              </li>
+              <li>
+                <a href="configuracoes.html"><span>Configurações</span></a>
+              </li>
+              <li>
+                <a href="suporte.html"><span>Suporte</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <div class="profile-info">
+            <img src="Imagens/avatar.png" alt="Avatar" class="profile-avatar" />
+            <span class="profile-name">[Nome do Usuário]</span>
+          </div>
+          <a href="index.html" class="logout-btn"><span>Sair</span></a>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay hidden" id="sidebar-overlay"></div>
+
+      <main class="dashboard-main-content">
+        <header class="wallet-header">
+          <h1>Minha Carteira</h1>
+        </header>
+
+        <section class="balance-overview">
+          <div class="balance-card-large">
+            <span>Saldo Disponível</span>
+            <strong id="wallet-balance">R$ 0,00</strong>
+            <button class="btn-withdraw">Fazer Saque</button>
+          </div>
+        </section>
+
+        <section class="transaction-history">
+          <h2>Histórico de Transações</h2>
+          <div class="history-table-container">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Data</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="transaction-history-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="withdraw-modal-overlay" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="close-button">&times;</button>
+        <h2>Realizar Saque</h2>
+
+        <form id="withdraw-form">
+          <div class="input-group">
+            <input
+              type="text"
+              id="pix-key"
+              placeholder="Chave PIX (CPF, Email, etc.)"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="number"
+              inputmode="decimal"
+              id="withdraw-amount"
+              placeholder="Quantia para sacar (BRL)"
+              required
+              step="0.01"
+              min="20"
+            />
+            <p class="info-text" style="text-align: center; margin-top: 5px">
+              Quantia mínima de R$ 20,00
+            </p>
+          </div>
+
+          <div class="fee-calculation">
+            <div class="fee-row">
+              <span>Valor do Saque:</span>
+              <span id="withdraw-summary-amount">R$ 0,00</span>
+            </div>
+            <div class="fee-row">
+              <span>Taxa de Saque (1%):</span>
+              <span id="withdraw-summary-fee">R$ 0,00</span>
+            </div>
+            <div class="fee-row total">
+              <h2>Você Receberá:</h2>
+              <h2 id="withdraw-summary-total">R$ 0,00</h2>
+            </div>
+          </div>
+
+          <p class="section-subtitle" style="margin: 20px 0">
+            O valor será enviado para a sua chave PIX.
+          </p>
+          <p
+            class="info-text"
+            style="
+              text-align: center;
+              margin-top: 0px;
+              margin-bottom: 25px;
+              color: #ffc107;
+            "
+          >
+            ⚠️ Para realizar um saque, você deve ter apostado um valor igual ou
+            superior à quantia total depositada na conta.
+          </p>
+
+          <button
+            type="submit"
+            id="withdraw-submit-btn"
+            class="btn-modal btn-entrar"
+          >
+            Confirmar Saque
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

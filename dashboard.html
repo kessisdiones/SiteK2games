@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - GameCash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="header-left">
+        <button class="icon-btn" id="mobile-menu-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="header-center">
+        <a href="" class="dashboard-logo">
+          <img src="Imagens/Logo.svg" alt="Logo da GameCash" />
+        </a>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+        <span class="online-count" id="online-count">12</span>
+        <!-- Valor inicial -->
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a href="" class="logo">
+            <img src="Imagens/Logo.svg" alt="Logo da GameCash" />
+          </a>
+          <button class="icon-btn close-sidebar-btn" id="close-sidebar-btn">
+            &times;
+          </button>
+        </div>
+        <div class="sidebar-top">
+          <nav class="sidebar-nav">
+            <ul>
+              <li class="active">
+                <a href="dashboard.html"><span>Início</span></a>
+              </li>
+              <li>
+                <a href="carteira.html"><span>Carteira</span></a>
+              </li>
+              <li>
+                <a href="historico.html"><span>Histórico</span></a>
+              </li>
+              <li>
+                <a href="configuracoes.html"><span>Configurações</span></a>
+              </li>
+              <li>
+                <a href="suporte.html"><span>Suporte</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <div class="profile-info">
+            <img src="Imagens/avatar.png" alt="Avatar" class="profile-avatar" />
+            <span class="profile-name">Nome do Usuário</span>
+          </div>
+          <a href="" class="logout-btn"><span>Sair</span></a>
+        </div>
+      </aside>
+
+      <div class="sidebar-overlay hidden" id="sidebar-overlay"></div>
+
+      <main class="dashboard-main-content">
+        <header class="dashboard-header">
+          <div class="welcome-message">
+            <h1>Bem-vindo de volta,[Nome]!</h1>
+            <p>Pronto para o próximo desafio?</p>
+          </div>
+
+          <div class="balance-section">
+            <div class="balance-display">
+              <span>Saldo disponível</span>
+              <strong>R$ 0,00</strong>
+            </div>
+            <a href="#" class="btn-deposit">Depositar</a>
+            <div class="header-right desktop-online">
+              <button class="icon-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </button>
+              <span class="online-count" id="online-count-desktop">512</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="games-section">
+          <h2>Escolha seu Jogo</h2>
+          <div class="games-grid">
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Dama"
+                data-description="<strong>🎯 Objetivo do Jogo:</strong><br>O objetivo é capturar ou imobilizar (bloquear) todas as peças do adversário, impedindo-o de fazer novos movimentos.<br><br><strong>♟️ O Tabuleiro e as Peças:</strong><br>Joga-se em um tabuleiro de 8x8 casas. Cada jogador começa com 12 peças (pedras), posicionadas apenas nas casas escuras das três primeiras fileiras do seu lado.<br><br><strong>🧩 Regras de Movimento:</strong><br><ul><li><strong>Movimento da Peça Comum:</strong> As peças comuns movem-se apenas uma casa na diagonal, sempre para frente.</li><li><strong>Captura (Obrigatória):</strong> A captura é obrigatória. Se uma de suas peças pode 'pular' sobre uma peça adversária na diagonal para cair na casa vazia seguinte, você deve realizar essa jogada. A peça capturada é removida do jogo. Se, após uma captura, for possível realizar outra na sequência, a jogada deve continuar (captura múltipla).</li><li><strong>Promoção para Dama:</strong> Quando uma peça comum alcança a última fileira do lado do oponente, ela é promovida e se torna uma 'Dama'.</li><li><strong>Movimento da Dama:</strong> A Dama é mais poderosa. Ela pode se mover na diagonal, para frente e para trás, por quantas casas quiser, desde que o caminho esteja livre. A Dama também pode capturar à distância na diagonal.</li></ul><br><strong>🏆 Como Vencer:</strong><br>Você vence a partida quando o adversário fica sem peças no tabuleiro ou sem possibilidade de realizar qualquer movimento legal.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00."
+                data-image="imagens/Dama.svg"
+                data-url="webgl/xadrez/index.html"
+              >
+                <img src="imagens/Dama.svg" alt="Jogo 1" />
+              </a>
+            </div>
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Jogo da velha 2.0"
+                data-description="<strong>🎯 Objetivo:</strong><br>O seu objetivo é ser o primeiro a formar uma linha (horizontal, vertical ou diagonal) com três peças da sua cor.<br><br><strong>🧩 A Regra Mais Importante (Sobreposição):</strong><br>Esta não é uma partida comum. Cada jogador tem 6 peças de 3 tamanhos diferentes (grandes, médias e pequenas). A grande virada do jogo é que uma peça maior pode ser colocada por cima de uma peça menor que já está no tabuleiro.<br><br>Peça Grande (3): Cobre peças médias (2) e pequenas (1).<br>Peça Média (2): Cobre apenas peças pequenas (1).<br>Peça Pequena (1): Só pode ser colocada em espaços vazios.<br><br><strong>♻️ Movimentação:</strong><br>Durante a sua vez, você pode tanto colocar uma nova peça quanto movimentar uma peça sua já existente dentro do tabuleiro, respeitando as regras de sobreposição.<br><br><strong>🏆 Como Vencer ou Perder:</strong><br>Vitória: Você vence ao fazer 3 peças em linha ou se o tempo do seu oponente acabar.<br>Tempo Esgotado: Ao zerar o tempo (30 segundos por jogada), o jogador perde a vez, e o turno passa automaticamente para o adversário.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00."
+                ,
+                data-image="imagens/Jogo da velha.svg"
+                data-url="webgl/corrida/index.html"
+              >
+                <img src="imagens/Jogo da velha.svg" alt="Jogo 2" />
+              </a>
+            </div>
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Puzzle Lógico"
+                data-description="Resolva enigmas e avance nos desafios de lógica."
+                data-image="imagens/jogo3.svg"
+                data-url="webgl/puzzle/index.html"
+              >
+                <img src="imagens/puxa-puxa.svg" alt="Jogo 3" />
+              </a>
+            </div>
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Batalha Espacial"
+                data-description="Explore o espaço e derrote naves inimigas!"
+                data-image="imagens/jogo4.svg"
+                data-url="webgl/espaco/index.html"
+              >
+                <img src="imagens/jogo4.svg" alt="Jogo 4" />
+              </a>
+            </div>
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Puzzle Lógico"
+                data-description="Resolva enigmas e avance nos desafios de lógica."
+                data-image="imagens/jogo3.svg"
+                data-url="webgl/puzzle/index.html"
+              >
+                <img src="imagens/jogo5.svg" alt="Jogo 5" />
+              </a>
+            </div>
+            <div class="game-card-wrapper">
+              <a
+                href="#"
+                class="game-card"
+                data-title="Batalha Espacial"
+                data-description="Explore o espaço e derrote naves inimigas!"
+                data-image="imagens/jogo5.svg"
+                data-url="webgl/espaco/index.html"
+              >
+                <img src="imagens/jogo6.svg" alt="Jogo 6" />
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="deposit-modal-1" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="close-button">&times;</button>
+        <h2>Insira as informações de PIX</h2>
+
+        <form id="deposit-form-1">
+          <div class="input-group">
+            <input
+              type="number"
+              id="deposit-amount"
+              placeholder="Quantia (BRL)"
+              min="1"
+              step="0.01"
+              required
+            />
+            <p class="info-text" style="text-align: center; margin-top: 5px">
+              Quantia mínima de R$ 1,00
+            </p>
+          </div>
+
+          <div class="fee-calculation">
+            <div class="fee-row">
+              <span>Depósito:</span>
+              <span id="summary-amount">R$ 0,00</span>
+            </div>
+            <div class="fee-row">
+              <span>Taxa (1%):</span>
+              <span id="summary-fee">R$ 0,00</span>
+            </div>
+            <div class="fee-row total">
+              <h2>Total a Pagar:</h2>
+              <h2 id="summary-total">R$ 0,00</h2>
+            </div>
+          </div>
+
+          <p class="section-subtitle" style="margin: 20px 0">
+            Clique no botão abaixo para gerar o pagamento!
+          </p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-modal btn-secondary"
+              id="deposit-back-btn-1"
+            >
+              Voltar
+            </button>
+            <button type="submit" class="btn-modal btn-entrar">Avançar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="deposit-modal-2" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="close-button hidden">&times;</button>
+
+        <div id="payment-view">
+          <div class="payment-header">
+            <img src="Imagens/logo-pix.png" alt="Logo PIX" class="pix-logo" />
+            <div class="payment-amount">
+              <span>Valor a pagar:</span>
+              <strong id="payment-total-value">R$ 0,00</strong>
+            </div>
+          </div>
+          <p class="countdown-timer" id="countdown-timer">
+            Pagamento expira em: 10:00
+          </p>
+
+          <img
+            id="pix-qr-code-img"
+            src="Imagens/qrcode.jpg"
+            alt="QR Code PIX"
+            class="qr-code-img"
+          />
+
+          <div class="pix-code-area">
+            <input
+              type="text"
+              id="pix-copy-paste-code"
+              value="aksnbdlksblfbsakgblsdfbs.sDFasfsgrt.5765675..."
+              readonly
+            />
+            <button id="copy-pix-code-btn">Copiar</button>
+          </div>
+
+          <ol class="instructions">
+            <li>Leia o código QR Code com o aplicativo PIX.</li>
+            <li>Conclua o depósito com seu banco.</li>
+            <li>Seu saldo de depósito será creditado.</li>
+          </ol>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn-modal btn-secondary"
+              id="deposit-back-btn-2"
+            >
+              Voltar
+            </button>
+            <button
+              type="button"
+              class="btn-modal btn-entrar"
+              id="simulate-payment-btn"
+            >
+              Simular Confirmação
+            </button>
+          </div>
+        </div>
+
+        <div id="confirmation-view" class="hidden">
+          <img
+            src="Imagens/iconeCheck.png"
+            alt="Ícone de Sucesso"
+            class="confirmation-icon"
+          />
+          <h2>Depósito Confirmado!</h2>
+          <p class="section-subtitle">
+            O valor já foi adicionado à sua carteira. Bom jogo!
+          </p>
+          <button class="btn-modal btn-entrar" id="close-confirmation-btn">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE JOGO -->
+    <div id="game-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="close-button" id="close-game-modal">&times;</button>
+
+        <img
+          id="game-modal-img"
+          src=""
+          alt="Imagem do Jogo"
+          class="modal-game-img"
+        />
+        <h2 id="game-modal-title">Título do Jogo</h2>
+        <p id="game-modal-description">Descrição do jogo.</p>
+
+        <div class="modal-actions">
+          <button class="btn-modal btn-secondary" id="cancel-game-btn">
+            Fechar
+          </button>
+          <a
+            id="open-game-btn"
+            class="btn-modal btn-entrar"
+            href="#"
+            target="_blank"
+            >Abrir Jogo</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

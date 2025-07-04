@@ -1,0 +1,208 @@
+/* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DE CONFIGURAÇÕES --- */
+
+.settings-section {
+    width: 95%;
+    background-color: #1A1D23;
+    border-radius: 12px;
+    padding: 25px;
+    
+    margin: 30px auto;
+}
+.wallet-header h1 {
+    font-size: 24px; 
+    padding: 0 40px;
+    margin-top: 30px;
+
+}
+.settings-section h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #2E343D;
+    padding-bottom: 15px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 95%;
+    padding: 12px;
+    background-color: #121418;
+    border: 1px solid #3E4553;
+    border-radius: 8px;
+    color: #EAEAEA;
+    font-size: 16px;
+}
+
+.input-group input:disabled {
+    background-color: #2E343D;
+    color: #868E96;
+    cursor: not-allowed;
+}
+
+.info-text {
+    font-size: 12px;
+    color: #868E96;
+    margin-top: 5px;
+}
+
+/* Estilos do item de notificação */
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-item p {
+    color: #CED4DA;
+}
+
+/* ========================================================= */
+/* --- ESTILO UNIFICADO PARA TODOS OS FORMULÁRIOS --- */
+/* ========================================================= */
+
+/* REGRA MESTRA: Aplica-se a todos os campos de formulário */
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #121418;
+    border: 1px solid #3E4553;
+    border-radius: 8px;
+    color: #EAEAEA;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de "foco" para todos os campos */
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #00BFFF;
+    box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+}
+
+/* ESTILO ESPECÍFICO PARA O SELECT "ASSUNTO" */
+.input-group select {
+    /* Remove a aparência padrão do navegador */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Adiciona nossa própria seta customizada */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23868E96' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 1em;
+    padding-right: 40px; 
+}
+
+/* Deixa o texto da primeira opção cinza */
+.input-group select:invalid {
+    color: #868E96;
+}
+
+/* Estilo das opções quando a lista abre */
+.input-group select option {
+    color: #EAEAEA;
+    background: #1A1D23;
+}
+
+/* Estilos do interruptor (toggle switch) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3E4553;
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #00BFFF;
+}
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* Botão de salvar */
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+.btn-save-changes {
+    background-color: #00BFFF;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.btn-save-changes:hover {
+    background-color: #009ACD;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Uma coluna no mobile */
+    }
+    .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .wallet-header h1 {
+    font-size: 24px; 
+    padding: 0 15px;
+    margin-top: 0px;
+
+    }
+    .settings-section {
+    width: 100%;
+    background-color: #1A1D23;
+    border-radius: 12px;
+    padding: 25px;
+    
+    margin: 20px auto;
+}
+}
