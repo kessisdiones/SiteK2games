@@ -4,7 +4,7 @@
 window.gameData = window.gameData || {
   1: {
     title: "Dama",
-    image: "Imagens/dama.svg",
+    image: "Imagens/Dama.svg",
     description:
       "<strong>🎯 Objetivo do Jogo:</strong><br>O objetivo é capturar todas as peças do seu oponente ou bloqueá-las de forma que ele não possa fazer mais nenhum movimento.<br><br><strong>♟️ O Tabuleiro e as Peças:</strong><br>O jogo acontece em um tabuleiro de 8x8 casas claras e escuras. Cada jogador começa com 12 peças (pedras), posicionadas apenas nas casas escuras das três primeiras fileiras do seu lado.<br><br><strong>🧩 Regras de Movimento:</strong><br><ul><li><strong>Movimento Simples:</strong> As peças comuns se movem apenas uma casa na diagonal, para frente, em direção ao lado do oponente.</li><li><strong>Captura:</strong> Para capturar, uma peça sua deve 'pular' por cima da peça do adversário, caindo na casa vazia logo atrás. A peça capturada é removida do jogo. É possível realizar múltiplas capturas em uma única jogada, se as condições permitirem.</li><li><strong>Tornando-se Dama:</strong> Quando uma peça sua alcança a última fileira do lado do oponente, ela é coroada e se torna uma 'Dama'.</li><li><strong>Movimento da Dama:</strong> A Dama é mais poderosa! Ela pode se mover na diagonal para frente e para trás, por quantas casas quiser, desde que o caminho esteja livre.</li></ul><br><strong>🏆 Como Vencer:</strong><br>Você vence a partida ao deixar seu oponente sem peças no tabuleiro ou sem a possibilidade de realizar qualquer movimento legal.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00.",
   },
@@ -17,7 +17,7 @@ window.gameData = window.gameData || {
 
   3: {
     title: "PUXA-PUXA",
-    image: "Imagens/puxa-puxa.svg",
+    image: "Imagens/Puxa-puxa.svg",
     description: "Uma batalha épica com heróis de diversos universos.",
   },
   4: {
