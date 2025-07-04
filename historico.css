@@ -1,7 +1,7 @@
 /* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DE HISTÓRICO --- */
 
 .match-history-list {
-  width: 80%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   gap: 15px; /* Espaço entre os cards de partida */
@@ -10,7 +10,7 @@
 
 .page-header h1 {
   font-size: 28px;
-  padding: 30px 185px;
+  margin: 30px 40px;
 }
 
 .match-card {

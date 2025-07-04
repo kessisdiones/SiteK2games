@@ -3,7 +3,7 @@
 .wallet-header h1 {
   font-size: 28px;
   margin-bottom: 30px;
-  padding: 20px 185px;
+  margin: 20px 40px;
 }
 
 .balance-overview {
@@ -15,7 +15,7 @@
   border-radius: 12px;
   padding: 30px;
   text-align: center;
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -55,12 +55,12 @@
 .transaction-history h2 {
   font-size: 22px;
   margin-bottom: 40px;
-  padding: 20px 185px;
+  margin: 20px 40px;
 }
 
 /* A "JANELA" que vai conter a tabela */
 .history-table-container {
-  width: 80%;
+  width: 95%;
 
   overflow-x: auto;
   /* Melhora a experiência de scroll no iPhone/iPad */

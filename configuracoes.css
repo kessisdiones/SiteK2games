@@ -1,7 +1,7 @@
 /* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DE CONFIGURAÇÕES --- */
 
 .settings-section {
-  width: 80%;
+  width: 95%;
   background-color: #1a1d23;
   border-radius: 12px;
   padding: 25px;
@@ -10,7 +10,7 @@
 }
 .wallet-header h1 {
   font-size: 28px;
-  padding: 0 185px;
+  margin: 0 40px;
   margin-top: 30px;
 }
 .settings-section h2 {
