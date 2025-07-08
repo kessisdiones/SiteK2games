@@ -2,8 +2,6 @@
 // SCRIPT ÚNICO PARA TODAS AS PÁGINAS DA ÁREA LOGADA
 // =================================================================
 
-const API_BASE_URL = "http://localhost:5000";
-
 document.addEventListener("DOMContentLoaded", function () {
   function aplicarMascaraMonetaria(input) {
     input.addEventListener("input", function (e) {

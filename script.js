@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
       loginSubmitBtn.disabled = true;
       loginSubmitBtn.textContent = "Entrando...";
 
-      fetch("http://localhost:5000/api/Auth/Login", {
+      fetch(`${AUTH_API_URL}/Auth/Login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password }),
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.disabled = true;
         submitButton.textContent = "Criando conta...";
 
-        fetch("http://localhost:5000/api/Auth/Register", {
+        fetch(`${AUTH_API_URL}/Auth/Register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
