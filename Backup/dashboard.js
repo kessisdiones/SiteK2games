@@ -2,9 +2,19 @@
 // SCRIPT ÚNICO PARA TODAS AS PÁGINAS DA ÁREA LOGADA
 // =================================================================
 
-const API_BASE_URL = "http://localhost:5000";
-
 document.addEventListener("DOMContentLoaded", function () {
+  function aplicarMascaraMonetaria(input) {
+    input.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for dígito
+      value = (parseInt(value, 10) / 100).toFixed(2); // Divide por 100 para colocar duas casas
+      if (isNaN(value)) value = "0.00";
+      e.target.value = value
+        .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        .replace("R$", "") // Remove o "R$" se quiser mostrar só número
+        .trim();
+    });
+  }
+
   // --- SIMULAÇÃO DE PESSOAS ONLINE ---
   function startOnlineCounter() {
     let currentCount = Math.floor(500 + Math.random() * 100);
@@ -373,6 +383,9 @@ document.addEventListener("DOMContentLoaded", function () {
       depositModal2.classList.add("hidden");
       clearInterval(countdownInterval);
     };
+    if (amountInput) {
+      aplicarMascaraMonetaria(amountInput);
+    }
 
     function updateDepositFee(amount) {
       const value = parseFloat(amount) || 0;
@@ -466,7 +479,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form1.addEventListener("submit", (e) => {
       e.preventDefault();
-      // CORREÇÃO: Pegamos o valor bruto que o usuário digitou.
       const depositValue = parseFloat(amountInput.value.replace(",", ".")) || 0;
 
       if (!depositValue || depositValue < 1) {
@@ -477,7 +489,6 @@ document.addEventListener("DOMContentLoaded", function () {
       advanceButton.disabled = true;
       advanceButton.textContent = "Gerando PIX...";
 
-      // CORREÇÃO: Enviamos o `depositValue` bruto para o backend.
       fetch(
         `${API_BASE_URL}/api/Game/GenerateNewOrder?userId=${userId}&value=${depositValue}`,
         {
@@ -513,7 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===================================================
-  // LÓGICA DO MODAL DE SAQUE (SEM MÁSCARA)
+  // LÓGICA DO MODAL DE SAQUE
   // ===================================================
   const openWithdrawButton = document.querySelector(".btn-withdraw");
   const withdrawModal = document.getElementById("withdraw-modal-overlay");
@@ -533,6 +544,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const errorMsg = document.getElementById("withdraw-error");
         if (errorMsg) errorMsg.classList.add("hidden");
       });
+    }
+    if (withdrawAmountInput) {
+      aplicarMascaraMonetaria(withdrawAmountInput);
     }
 
     function openWithdrawModal() {

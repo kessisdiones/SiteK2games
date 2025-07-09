@@ -651,33 +651,92 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
   }
-  //============ modal dos jogos ===============
-  document.querySelectorAll(".game-card").forEach((card) => {
-    card.addEventListener("click", function (e) {
-      e.preventDefault();
+});
 
-      // Pega dados
-      const title = this.dataset.title;
-      const description = this.dataset.description;
-      const image = this.dataset.image;
-      const url = this.dataset.url;
+// =================================================================
+// --- LÓGICA COMPLETA: MODAL DE INFORMAÇÕES -> TELA DE JOGO ---
+// =================================================================
 
-      // Preenche o modal
-      document.getElementById("game-modal-title").textContent = title;
-      document.getElementById("game-modal-description").innerHTML = description;
-      document.getElementById("game-modal-img").src = image;
-      document.getElementById("open-game-btn").href = url;
+// Seleciona todos os elementos que vamos usar
+const gameInfoModal = document.getElementById("game-modal");
+const closeModalButton = document.getElementById("close-game-modal");
+const cancelModalButton = document.getElementById("cancel-game-btn");
+const openGameButton = document.getElementById("open-game-btn");
 
-      // Abre o modal
-      document.getElementById("game-modal").classList.remove("hidden");
-    });
-  });
+const gameViewContainer = document.getElementById("game-view-container");
+const iframeWrapper = document.getElementById("game-iframe-wrapper");
+const closeGameViewBtn = document.getElementById("close-game-view-btn");
 
-  // Botão de fechar o modal
-  document.getElementById("close-game-modal").addEventListener("click", () => {
-    document.getElementById("game-modal").classList.add("hidden");
-  });
-  document.getElementById("cancel-game-btn").addEventListener("click", () => {
-    document.getElementById("game-modal").classList.add("hidden");
+const mainContent = document.querySelector(".dashboard-main-content");
+const sidebar = document.querySelector(".sidebar");
+const mobileHeader = document.querySelector(".mobile-header");
+
+// --- ETAPA 1: Abrir o Modal ao clicar no Card ---
+document.querySelectorAll(".game-card").forEach((card) => {
+  card.addEventListener("click", function (e) {
+    e.preventDefault(); // Impede a navegação padrão
+
+    // Pega os dados do card clicado
+    const title = this.dataset.title;
+    const description = this.dataset.description;
+    const image = this.dataset.image;
+    const gameUrl = this.dataset.url;
+
+    // Preenche o modal com as informações do jogo
+    document.getElementById("game-modal-title").textContent = title;
+    document.getElementById("game-modal-description").innerHTML = description;
+    document.getElementById("game-modal-img").src = image;
+
+    // Guarda a URL do jogo no botão "Abrir Jogo" para usar depois
+    openGameButton.dataset.gameUrl = gameUrl;
+
+    // Mostra o modal
+    gameInfoModal.classList.remove("hidden");
   });
 });
+
+// --- ETAPA 2: Abrir o Jogo ao clicar no botão do Modal ---
+openGameButton.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const gameUrl = this.dataset.gameUrl; // Pega a URL que guardamos
+
+  // Esconde o modal
+  gameInfoModal.classList.add("hidden");
+
+  // Esconde o conteúdo principal do dashboard
+  mainContent.classList.add("hidden");
+  sidebar.classList.add("hidden");
+  if (mobileHeader) mobileHeader.classList.add("hidden");
+
+  // Cria e exibe o iframe do jogo
+  iframeWrapper.innerHTML = ""; // Limpa qualquer jogo anterior
+  const gameIframe = document.createElement("iframe");
+  gameIframe.src = gameUrl;
+  iframeWrapper.appendChild(gameIframe);
+
+  // Mostra a "tela preta" com o jogo
+  gameViewContainer.classList.remove("hidden");
+});
+
+// --- ETAPA 3: Voltar para o Dashboard ao fechar o Jogo ---
+closeGameViewBtn.addEventListener("click", () => {
+  // Esconde a tela do jogo
+  gameViewContainer.classList.add("hidden");
+
+  // Mostra o conteúdo do dashboard novamente
+  mainContent.classList.remove("hidden");
+  sidebar.classList.remove("hidden");
+  if (mobileHeader) mobileHeader.classList.remove("hidden");
+
+  // Limpa o iframe para parar o jogo
+  iframeWrapper.innerHTML = "";
+});
+
+// --- Funções para fechar o MODAL (sem abrir o jogo) ---
+function closeModal() {
+  gameInfoModal.classList.add("hidden");
+}
+// Adiciona o evento para os botões 'X' e 'Fechar' do modal
+closeModalButton.addEventListener("click", closeModal);
+cancelModalButton.addEventListener("click", closeModal);

@@ -1,108 +1,107 @@
 /* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DE HISTÓRICO --- */
 
 .match-history-list {
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espaço entre os cards de partida */
-    margin: 0 auto;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaço entre os cards de partida */
+  margin: 0 auto;
 }
 
 .page-header h1 {
-    font-size: 28px;
-    margin: 30px 40px;
+  font-size: 28px;
+  margin: 30px 40px;
 }
 
 .match-card {
-    background-color: #1A1D23;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 5px solid #3E4553; /* Borda padrão */
-    transition: background-color 0.3s ease;
+  background-color: #1a1d23;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid #3e4553; /* Borda padrão */
+  transition: background-color 0.3s ease;
 }
 
 .match-card:hover {
-    background-color: #212529;
+  background-color: #212529;
 }
 
 /* Estilos para os cards de VITÓRIA */
 .match-card.win {
-    border-left-color: #2F9E44; /* Verde */
+  border-left-color: #2f9e44; /* Verde */
 }
 
 /* Estilos para os cards de DERROTA */
 .match-card.loss {
-    border-left-color: #E03131; /* Vermelho */
+  border-left-color: #e03131; /* Vermelho */
 }
 
 .match-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .match-info .game-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .match-info .opponent-info {
-    font-size: 14px;
-    color: #ADB5BD;
+  font-size: 14px;
+  color: #adb5bd;
 }
 
 .match-result {
-    text-align: right;
+  text-align: right;
 }
 
 .match-result .match-amount {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 /* Cor do valor ganho */
 .match-result .match-amount.win {
-    color: #2F9E44;
+  color: #2f9e44;
 }
 
 /* Cor do valor perdido */
 .match-result .match-amount.loss {
-    color: #E03131;
+  color: #e03131;
 }
 
 .match-result .match-date {
-    font-size: 13px;
-    color: #868E96;
+  font-size: 13px;
+  color: #868e96;
 }
 
 /* Responsividade para a página de histórico */
 @media (max-width: 600px) {
-    .match-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    .match-result {
-        text-align: left;
-        width: 100%;
-        padding-top: 15px;
-        border-top: 1px solid #2E343D;
-    }
-    .match-history-list {
+  .match-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .match-result {
+    text-align: left;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #2e343d;
+  }
+  .match-history-list {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px; /* Espaço entre os cards de partida */
     margin: 0 auto;
-}
+  }
 
-.page-header h1 {
+  .page-header h1 {
     font-size: 28px;
     margin: 20px 0px;
-}
-
+  }
 }

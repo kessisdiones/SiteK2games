@@ -1,62 +1,61 @@
 /* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DE SUPORTE --- */
 
 .page-header h1 {
-    font-size: 28px;
-    margin: 15px auto;
-    text-align: center;
+  font-size: 28px;
+  margin: 15px auto;
+  text-align: center;
 }
 
 .support-content .section-subtitle {
-    text-align: center;
-    width: 95%;
-    margin-bottom: 30px;
+  text-align: center;
+  width: 95%;
+  margin-bottom: 30px;
 }
 
 .support-form-card {
-    background-color: #1A1D23;
-    border-radius: 12px;
-    padding: 30px;
-    width: 90%;
-    margin: 0 auto; /* Centraliza o formulário na página */
+  background-color: #1a1d23;
+  border-radius: 12px;
+  padding: 30px;
+  width: 80%;
+  margin: 0 auto; /* Centraliza o formulário na página */
 }
 
 /* Reutilizamos os estilos de formulário do configuracoes.css, mas podemos adicionar ajustes */
 .support-form-card .input-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .support-form-card textarea {
-    width: 100%;
-    padding: 12px;
-    background-color: #121418;
-    border: 1px solid #3E4553;
-    border-radius: 8px;
-    color: #EAEAEA;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    resize: vertical;
-    min-height: 150px;
+  width: 100%;
+  padding: 12px;
+  background-color: #121418;
+  border: 1px solid #3e4553;
+  border-radius: 8px;
+  color: #eaeaea;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  resize: vertical;
+  min-height: 150px;
 }
 
 @media (max-width: 600px) {
-    .page-header h1 {
+  .page-header h1 {
     font-size: 28px;
     margin: 15px auto;
     text-align: center;
-}
+  }
 
-.support-content .section-subtitle {
+  .support-content .section-subtitle {
     text-align: center;
     width: 100%;
     margin-bottom: 30px;
-}
+  }
 
-.support-form-card {
-    background-color: #1A1D23;
+  .support-form-card {
+    background-color: #1a1d23;
     border-radius: 12px;
     padding: 30px;
     width: 100%;
     margin: 0 auto; /* Centraliza o formulário na página */
-}
-
+  }
 }

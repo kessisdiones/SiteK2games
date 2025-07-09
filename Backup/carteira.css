@@ -1,217 +1,185 @@
 /* --- ESTILOS ESPECÍFICOS PARA A PÁGINA DA CARTEIRA --- */
 
 .wallet-header h1 {
-    font-size: 28px;
-    margin-bottom: 30px;
-    margin: 20px 40px;
+  font-size: 28px;
+  margin: 20px 40px;
 }
 
 .balance-overview {
-    margin-bottom: 40px;
-    
+  margin-bottom: 40px;
 }
 
 .balance-card-large {
-    background: #1A1D23;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    width: 95%;
-    margin: 0 auto;
-    
+  background: #1a1d23;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .balance-card-large span {
-    font-size: 25px;
-    color: #ADB5BD;
-    display: block;
+  font-size: 25px;
+  color: #adb5bd;
+  display: block;
 }
 
 .balance-card-large strong {
-    font-size: 48px;
-    font-weight: 700;
-    color: #ffffff;
-    display: block;
-    margin: 10px 0 25px 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
+  display: block;
+  margin: 10px 0 25px 0;
 }
 
 .btn-withdraw {
-    background-color: #00BFFF;
-    color: white;
-    padding: 14px 40px;
-    border-radius: 8px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+  background-color: #00bfff;
+  color: white;
+  padding: 14px 40px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
+
 .btn-withdraw:hover {
-    background-color: #009ACD;
+  background-color: #009acd;
 }
 
 /* ============================================================= */
-/* --- SEÇÃO DE HISTÓRICO DE TRANSAÇÕES (VERSÃO CORRIGIDA) --- */
+/* --- SEÇÃO DE HISTÓRICO DE TRANSAÇÕES --- */
 /* ============================================================= */
 
 .transaction-history h2 {
-    font-size: 22px;
-    margin-bottom: 40px;
-    margin: 20px 40px;
+  font-size: 22px;
+  margin: 20px 40px;
 }
 
-/* A "JANELA" que vai conter a tabela */
+/* Contêiner da tabela */
 .history-table-container {
-    width: 95%; 
-    
-    overflow-x: auto; 
-    /* Melhora a experiência de scroll no iPhone/iPad */
-    -webkit-overflow-scrolling: touch; 
-    
-    /* Estilos visuais */
-    background-color: #1A1D23;
-    border-radius: 12px;
-    padding: 0 10px; /* Um pequeno respiro interno */
-    margin: 0 auto;
+  width: 95%;
+  background-color: #1a1d23;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 
-/* A TABELA EM SI, que fica DENTRO da "janela" */
+/* Tabela */
 .history-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Força distribuição equilibrada das colunas */
-    word-wrap: break-word;
-    margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  word-wrap: break-word;
+  margin: 0 auto;
 }
 
+.history-table th,
+.history-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #2e343d;
+  white-space: normal; /* Permite quebra de linha */
+  word-break: break-word; /* Garante quebra de palavras longas */
+}
 
-/* --- O resto dos estilos da tabela (pode manter como estava) --- */
-.history-table th, .history-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #2E343D;
-    white-space: nowrap; /* Impede que o texto quebre linha */
-    
+.history-table th {
+  font-size: 13px;
+  color: #868e96;
+  text-transform: uppercase;
+  font-weight: 600;
 }
-.history-table th { 
-    font-size: 13px; 
-    color: #868E96; 
-    text-transform: uppercase; 
-    font-weight: 600; 
-   
+
+.history-table td {
+  font-size: 16px;
 }
-.history-table td { 
-    font-size: 16px; 
-}
+
 .history-table tbody tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
-.status { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; }
-.status-completed { background-color: rgba(47, 158, 68, 0.2); color: #2F9E44; }
-.status-pending { background-color: rgba(245, 159, 0, 0.2); color: #F59F00; }
-.status-cancelled { background-color: rgba(224, 49, 49, 0.2); color: #E03131; }
 
+/* Status */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+}
 
+.status-completed {
+  background-color: rgba(47, 158, 68, 0.2);
+  color: #2f9e44;
+}
 
-/* Adicionamos a responsividade do header que estava no dashboard.css */
+.status-pending {
+  background-color: rgba(245, 159, 0, 0.2);
+  color: #f59f00;
+}
+
+.status-cancelled {
+  background-color: rgba(224, 49, 49, 0.2);
+  color: #e03131;
+}
+
+/* ============================================================= */
+/* --- RESPONSIVIDADE --- */
+/* ============================================================= */
+
 @media (max-width: 1024px) {
-    .wallet-header { display: none; }
+  .wallet-header {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
+  .wallet-header h1 {
+    font-size: 24px;
+    margin: 15px 20px;
+  }
 
-    .wallet-header h1 {
-    font-size: 28px;
-    margin-bottom: 30px;
-}
-
-.balance-overview {
-    margin-bottom: 40px;
-}
-
-.balance-card-large {
-    background: #1A1D23;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
+  .balance-card-large {
     width: 100%;
-    
-}
+    padding: 20px;
+  }
 
-.balance-card-large span {
+  .balance-card-large span {
     font-size: 14px;
-    color: #ADB5BD;
-    display: block;
-}
+  }
 
-.balance-card-large strong {
-    font-size: 48px;
-    font-weight: 700;
-    color: #ffffff;
-    display: block;
-    margin: 10px 0 25px 0;
-}
+  .balance-card-large strong {
+    font-size: 32px;
+    margin: 10px 0 20px 0;
+  }
 
-.btn-withdraw {
-    background-color: #00BFFF;
-    color: white;
-    padding: 14px 40px;
-    border-radius: 8px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-.btn-withdraw:hover {
-    background-color: #009ACD;
-}
+  .btn-withdraw {
+    font-size: 14px;
+    padding: 10px 30px;
+  }
 
-/* ============================================================= */
-/* --- SEÇÃO DE HISTÓRICO DE TRANSAÇÕES (VERSÃO CORRIGIDA) --- */
-/* ============================================================= */
+  .transaction-history h2 {
+    font-size: 20px;
+    margin: 15px 20px;
+  }
 
-.transaction-history h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-/* A "JANELA" que vai conter a tabela */
-.history-table-container {
-    width: 100%; /* A "janela" ocupa 100% do espaço disponível na tela */
-    
-    /* A ORDEM MAIS IMPORTANTE: cria a rolagem horizontal */
-    overflow-x: auto; 
-    
-    /* Melhora a experiência de scroll no iPhone/iPad */
-    -webkit-overflow-scrolling: touch; 
-    
-    /* Estilos visuais */
-    background-color: #1A1D23;
-    border-radius: 12px;
-    padding: 0 15px; /* Um pequeno respiro interno */
-}
-
-/* A TABELA EM SI, que fica DENTRO da "janela" */
-.history-table {
+  .history-table-container {
     width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Força distribuição equilibrada das colunas */
-    word-wrap: break-word;
-}
+    padding: 5px;
+  }
 
+  .history-table th,
+  .history-table td {
+    font-size: 12px;
+    padding: 10px 5px;
+    white-space: normal;
+    text-align: center;
+  }
 
-
-
-.history-table td { 
-    font-size: 12px; 
-}
-.history-table tbody tr:last-child td {
-    border-bottom: none;
-}
-.status { padding: 1px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
-.status-completed { background-color: rgba(47, 158, 68, 0.2); color: #2F9E44; }
-.status-pending { background-color: rgba(245, 159, 0, 0.2); color: #F59F00; }
-.status-cancelled { background-color: rgba(224, 49, 49, 0.2); color: #E03131; }
-
+  .status {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
 }
