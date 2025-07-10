@@ -696,70 +696,79 @@ document.querySelectorAll(".game-card").forEach((card) => {
 });
 
 // --- ETAPA 2: Abrir o Jogo ao clicar no botão do Modal ---
-openGameButton.addEventListener("click", function (e) {
-  e.preventDefault();
+if (openGameButton) {
+  openGameButton.addEventListener("click", function (e) {
+    e.preventDefault();
 
-  // --- INÍCIO DA NOVA LÓGICA ---
+    // --- INÍCIO DA NOVA LÓGICA ---
 
-  // 1. Pega os dados do usuário que já estão salvos no navegador
-  const token = localStorage.getItem("userToken");
-  const nickname = localStorage.getItem("userNickname") || "Jogador";
+    // 1. Pega os dados do usuário que já estão salvos no navegador
+    const token = localStorage.getItem("userToken");
+    const nickname = localStorage.getItem("userNickname") || "Jogador";
 
-  // Segurança: Verifica se o token existe antes de abrir o jogo
-  if (!token) {
-    alert("Erro de autenticação. Por favor, faça login novamente.");
-    return;
-  }
+    // Segurança: Verifica se o token existe antes de abrir o jogo
+    if (!token) {
+      alert("Erro de autenticação. Por favor, faça login novamente.");
+      return;
+    }
 
-  // 2. Pega a URL base do jogo que guardamos no passo anterior
-  const baseUrl = this.dataset.gameUrl;
+    // 2. Pega a URL base do jogo que guardamos no passo anterior
+    const baseUrl = this.dataset.gameUrl;
 
-  // 3. Monta a URL final com os parâmetros
-  // Usamos encodeURIComponent para garantir que nomes com espaços ou caracteres especiais funcionem
-  const finalGameUrl = `${baseUrl}?token=${token}&nickname=${encodeURIComponent(
-    nickname
-  )}`;
+    // 3. Monta a URL final com os parâmetros
+    // Usamos encodeURIComponent para garantir que nomes com espaços ou caracteres especiais funcionem
+    const finalGameUrl = `${baseUrl}?token=${token}&nickname=${encodeURIComponent(
+      nickname
+    )}`;
 
-  console.log("Abrindo jogo com a URL:", finalGameUrl); // Ótimo para depuração!
+    console.log("Abrindo jogo com a URL:", finalGameUrl); // Ótimo para depuração!
 
-  // --- FIM DA NOVA LÓGICA ---
+    // --- FIM DA NOVA LÓGICA ---
 
-  // O resto do código continua o mesmo, mas agora usa a nova URL
-  gameInfoModal.classList.add("hidden");
+    // O resto do código continua o mesmo, mas agora usa a nova URL
+    gameInfoModal.classList.add("hidden");
 
-  mainContent.classList.add("hidden");
-  sidebar.classList.add("hidden");
-  if (mobileHeader) mobileHeader.classList.add("hidden");
+    mainContent.classList.add("hidden");
+    sidebar.classList.add("hidden");
+    if (mobileHeader) mobileHeader.classList.add("hidden");
 
-  iframeWrapper.innerHTML = "";
-  const gameIframe = document.createElement("iframe");
+    iframeWrapper.innerHTML = "";
+    const gameIframe = document.createElement("iframe");
 
-  // A única mudança aqui é usar a 'finalGameUrl'
-  gameIframe.src = finalGameUrl;
+    // A única mudança aqui é usar a 'finalGameUrl'
+    gameIframe.src = finalGameUrl;
 
-  iframeWrapper.appendChild(gameIframe);
+    iframeWrapper.appendChild(gameIframe);
 
-  gameViewContainer.classList.remove("hidden");
-});
+    gameViewContainer.classList.remove("hidden");
+  });
+}
 
 // --- ETAPA 3: Voltar para o Dashboard ao fechar o Jogo ---
-closeGameViewBtn.addEventListener("click", () => {
-  // Esconde a tela do jogo
-  gameViewContainer.classList.add("hidden");
+if (closeGameViewBtn) {
+  closeGameViewBtn.addEventListener("click", () => {
+    // Esconde a tela do jogo
+    gameViewContainer.classList.add("hidden");
 
-  // Mostra o conteúdo do dashboard novamente
-  mainContent.classList.remove("hidden");
-  sidebar.classList.remove("hidden");
-  if (mobileHeader) mobileHeader.classList.remove("hidden");
+    // Mostra o conteúdo do dashboard novamente
+    mainContent.classList.remove("hidden");
+    sidebar.classList.remove("hidden");
+    if (mobileHeader) mobileHeader.classList.remove("hidden");
 
-  // Limpa o iframe para parar o jogo
-  iframeWrapper.innerHTML = "";
-});
+    // Limpa o iframe para parar o jogo
+    iframeWrapper.innerHTML = "";
+  });
+}
 
 // --- Funções para fechar o MODAL (sem abrir o jogo) ---
 function closeModal() {
   gameInfoModal.classList.add("hidden");
 }
 // Adiciona o evento para os botões 'X' e 'Fechar' do modal
-closeModalButton.addEventListener("click", closeModal);
-cancelModalButton.addEventListener("click", closeModal);
+
+if (closeModalButton) {
+  closeModalButton.addEventListener("click", closeModal);
+}
+if (cancelModalButton) {
+  cancelModalButton.addEventListener("click", closeModal);
+}

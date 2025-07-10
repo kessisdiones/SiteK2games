@@ -578,3 +578,58 @@ body {
     align-items: center;
   }
 }
+
+/* =================================================== */
+/* ---     ESTILOS PARA A NOVA TELA DE JOGO        --- */
+/* =================================================== */
+
+/* O container que ocupa a tela inteira */
+#game-view-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #060606;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+#game-view-container.hidden {
+  display: none;
+}
+
+/* O wrapper que segura o iframe do jogo */
+#game-iframe-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* O iframe do jogo em si */
+#game-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* O botão de "Voltar ao Início" */
+.close-game-button {
+  background-color: #223e4a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1001;
+  transition: background-color 0.3s ease;
+}
+.close-game-button:hover {
+  background-color: #00bfff;
+}

@@ -56,7 +56,7 @@
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
         </button>
-        <span class="online-count" id="online-count">12</span>
+
         <!-- Valor inicial -->
       </div>
     </header>
@@ -116,25 +116,6 @@
               <strong>R$ 0,00</strong>
             </div>
             <a href="#" class="btn-deposit">Depositar</a>
-            <div class="header-right desktop-online">
-              <button class="icon-btn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </button>
-              <span class="online-count" id="online-count-desktop">512</span>
-            </div>
           </div>
         </header>
 
@@ -148,7 +129,7 @@
                 data-title="Dama"
                 data-description="<strong>🎯 Objetivo do Jogo:</strong><br>O objetivo é capturar ou imobilizar (bloquear) todas as peças do adversário, impedindo-o de fazer novos movimentos.<br><br><strong>♟️ O Tabuleiro e as Peças:</strong><br>Joga-se em um tabuleiro de 8x8 casas. Cada jogador começa com 12 peças (pedras), posicionadas apenas nas casas escuras das três primeiras fileiras do seu lado.<br><br><strong>🧩 Regras de Movimento:</strong><br><ul><li><strong>Movimento da Peça Comum:</strong> As peças comuns movem-se apenas uma casa na diagonal, sempre para frente.</li><li><strong>Captura (Obrigatória):</strong> A captura é obrigatória. Se uma de suas peças pode 'pular' sobre uma peça adversária na diagonal para cair na casa vazia seguinte, você deve realizar essa jogada. A peça capturada é removida do jogo. Se, após uma captura, for possível realizar outra na sequência, a jogada deve continuar (captura múltipla).</li><li><strong>Promoção para Dama:</strong> Quando uma peça comum alcança a última fileira do lado do oponente, ela é promovida e se torna uma 'Dama'.</li><li><strong>Movimento da Dama:</strong> A Dama é mais poderosa. Ela pode se mover na diagonal, para frente e para trás, por quantas casas quiser, desde que o caminho esteja livre. A Dama também pode capturar à distância na diagonal.</li></ul><br><strong>🏆 Como Vencer:</strong><br>Você vence a partida quando o adversário fica sem peças no tabuleiro ou sem possibilidade de realizar qualquer movimento legal.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00."
                 data-image="Imagens/Dama.svg"
-                data-url="webgl/xadrez/index.html"
+                data-url="Imagens/foto.png"
               >
                 <img src="Imagens/Dama.svg" alt="Jogo 1" />
               </a>
@@ -217,6 +198,12 @@
           </div>
         </section>
       </main>
+      <div id="game-view-container" class="hidden">
+        <button id="close-game-view-btn" class="close-game-button">
+          &times; Voltar ao Início
+        </button>
+        <div id="game-iframe-wrapper"></div>
+      </div>
     </div>
 
     <div id="deposit-modal-1" class="modal-overlay hidden">
@@ -374,7 +361,7 @@
         </div>
       </div>
     </div>
-    <script src="js/config.js"></script>
+    <script src="config.js"></script>
     <script src="dashboard.js"></script>
   </body>
 </html>
