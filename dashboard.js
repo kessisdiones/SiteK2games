@@ -699,23 +699,46 @@ document.querySelectorAll(".game-card").forEach((card) => {
 openGameButton.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const gameUrl = this.dataset.gameUrl; // Pega a URL que guardamos
+  // --- INÍCIO DA NOVA LÓGICA ---
 
-  // Esconde o modal
+  // 1. Pega os dados do usuário que já estão salvos no navegador
+  const token = localStorage.getItem("userToken");
+  const nickname = localStorage.getItem("userNickname") || "Jogador";
+
+  // Segurança: Verifica se o token existe antes de abrir o jogo
+  if (!token) {
+    alert("Erro de autenticação. Por favor, faça login novamente.");
+    return;
+  }
+
+  // 2. Pega a URL base do jogo que guardamos no passo anterior
+  const baseUrl = this.dataset.gameUrl;
+
+  // 3. Monta a URL final com os parâmetros
+  // Usamos encodeURIComponent para garantir que nomes com espaços ou caracteres especiais funcionem
+  const finalGameUrl = `${baseUrl}?token=${token}&nickname=${encodeURIComponent(
+    nickname
+  )}`;
+
+  console.log("Abrindo jogo com a URL:", finalGameUrl); // Ótimo para depuração!
+
+  // --- FIM DA NOVA LÓGICA ---
+
+  // O resto do código continua o mesmo, mas agora usa a nova URL
   gameInfoModal.classList.add("hidden");
 
-  // Esconde o conteúdo principal do dashboard
   mainContent.classList.add("hidden");
   sidebar.classList.add("hidden");
   if (mobileHeader) mobileHeader.classList.add("hidden");
 
-  // Cria e exibe o iframe do jogo
-  iframeWrapper.innerHTML = ""; // Limpa qualquer jogo anterior
+  iframeWrapper.innerHTML = "";
   const gameIframe = document.createElement("iframe");
-  gameIframe.src = gameUrl;
+
+  // A única mudança aqui é usar a 'finalGameUrl'
+  gameIframe.src = finalGameUrl;
+
   iframeWrapper.appendChild(gameIframe);
 
-  // Mostra a "tela preta" com o jogo
   gameViewContainer.classList.remove("hidden");
 });
 
