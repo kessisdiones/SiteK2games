@@ -199,12 +199,16 @@ document.addEventListener("DOMContentLoaded", function () {
           Pendente: "status-pending",
           Cancelado: "status-cancelled",
         }[tx.status] || "";
+      const amountColorClass = tx.amount < 0 ? "text-danger" : "text-success";
       historyTableBody.innerHTML += `<tr><td>${tx.type}</td><td>${
         tx.date
-      }</td><td>${tx.amount.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })}</td><td><span class="status ${statusClass}">${
+      }</td><td class="${amountColorClass}">${tx.amount.toLocaleString(
+        "pt-BR",
+        {
+          style: "currency",
+          currency: "BRL",
+        }
+      )}</td><td><span class="status ${statusClass}">${
         tx.status
       }</span></td></tr>`;
     });
@@ -331,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
     settingsForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const newSettings = {
-        nickname: document.getElementById("nickname").value,
+        nickname: document.getElementById("userNickname").value,
         currentPassword: document.getElementById("current-password").value,
         newPassword: document.getElementById("new-password").value,
         emailNotifications: document.getElementById("email-notifications")

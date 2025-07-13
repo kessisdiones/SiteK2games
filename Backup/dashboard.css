@@ -577,6 +577,17 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .close-game-button {
+    padding: 8px 14px;
+    font-size: 13px;
+    top: 8px;
+    right: 8px;
+  }
+
+  #game-view-container {
+    padding-top: 0;
+  }
 }
 
 /* =================================================== */

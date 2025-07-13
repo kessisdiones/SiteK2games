@@ -725,7 +725,6 @@ if (openGameButton) {
 
     // --- FIM DA NOVA LÓGICA ---
 
-    // O resto do código continua o mesmo, mas agora usa a nova URL
     gameInfoModal.classList.add("hidden");
 
     mainContent.classList.add("hidden");

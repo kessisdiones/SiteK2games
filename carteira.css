@@ -51,7 +51,15 @@
 /* ============================================================= */
 /* --- SEÇÃO DE HISTÓRICO DE TRANSAÇÕES --- */
 /* ============================================================= */
+.text-danger {
+  color: red;
+  font-weight: 600;
+}
 
+.text-success {
+  color: green;
+  font-weight: 600;
+}
 .transaction-history h2 {
   font-size: 22px;
   margin: 20px 40px;
