@@ -328,14 +328,14 @@
 
           <button type="submit" class="btn-modal btn-entrar">Entrar</button>
 
-          <div class="separator"><span>OU</span></div>
+          <!--<div class="separator"><span>OU</span></div>
 
           <div class="google-btn-wrapper">
             <button type="button" class="btn-modal btn-google">
               <img src="Imagens/G google.png" alt="Logo do Google" /> Entrar com
               o Google
             </button>
-          </div>
+          </div>-->
         </form>
         <p class="signup-link">
           Ainda não possui um cadastro?
@@ -401,12 +401,12 @@
             </select>
           </div>
 
-          <div class="recaptcha-container">
+          <!--<div class="recaptcha-container">
             <div
               class="g-recaptcha"
               data-sitekey="6LfcJ2grAAAAAD6VdSdnJEivR9lnfCv6iGsDoh2E"
             ></div>
-          </div>
+          </div>-->
 
           <div class="terms-group">
             <input type="checkbox" id="terms-checkbox" required />
@@ -446,28 +446,48 @@
 
         <form id="support-form">
           <div class="input-group">
-            <input type="text" placeholder="Seu Nome" required />
+            <input
+              type="text"
+              id="support-name"
+              placeholder="Seu Nome"
+              required
+            />
           </div>
           <div class="input-group">
-            <input type="email" placeholder="Seu Email de Cadastro" required />
+            <input
+              type="email"
+              id="support-email"
+              placeholder="Seu Email de Cadastro"
+              required
+            />
           </div>
           <div class="input-group">
-            <select required>
+            <select id="support-subject" required>
               <option value="">Selecione o Assunto</option>
-              <option value="deposito">Problema com Depósito/Saque</option>
-              <option value="jogo">Dúvida sobre um Jogo</option>
-              <option value="bug">Reportar um Erro (Bug)</option>
-              <option value="sugestao">Sugestão</option>
-              <option value="outro">Outro</option>
+              <option value="Problema com Depósito/Saque">
+                Problema com Depósito/Saque
+              </option>
+              <option value="Dúvida sobre um Jogo">Dúvida sobre um Jogo</option>
+              <option value="Reportar um Erro (Bug)">
+                Reportar um Erro (Bug)
+              </option>
+              <option value="Sugestão">Sugestão</option>
+              <option value="Outro">Outro</option>
             </select>
           </div>
           <div class="input-group">
             <textarea
+              id="support-message"
               placeholder="Descreva sua mensagem aqui..."
               rows="5"
               required
             ></textarea>
           </div>
+          <p
+            id="support-feedback"
+            style="text-align: center; font-weight: bold; min-height: 1.2em"
+          ></p>
+
           <button type="submit" class="btn-modal btn-entrar">
             Enviar Mensagem
           </button>
@@ -513,6 +533,11 @@
         <button class="btn-modal btn-entrar">Jogar Agora</button>
       </div>
     </div>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
 
     <script src="config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

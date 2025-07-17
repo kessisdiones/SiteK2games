@@ -634,6 +634,19 @@ a {
   background-repeat: no-repeat;
 }
 
+.feedback-message {
+  display: block;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+.feedback-message.success {
+  color: #00cc66;
+}
+.feedback-message.error {
+  color: #ff3333;
+}
+
 /* ==================================================================== */
 /* --- Estilos Adicionais para Modais (Versão Unificada e Melhorada) --- */
 /* ==================================================================== */

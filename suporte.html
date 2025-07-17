@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suporte - GameCash</title>
+    <title>Suporte - 2KGames</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,7 +38,7 @@
       </div>
       <div class="header-center">
         <a href="" class="dashboard-logo">
-          <img src="Imagens/Logo.svg" alt="Logo da GameCash" />
+          <img src="Imagens/Logo.svg" alt="Logo da 2KGames" />
         </a>
       </div>
       <div class="header-right">
@@ -58,14 +58,13 @@
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
         </button>
-        <!-- Valor inicial -->
       </div>
     </header>
     <div class="dashboard-container">
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
           <a href="" class="logo"
-            ><img src="Imagens/Logo.svg" alt="Logo da GameCash"
+            ><img src="Imagens/Logo.svg" alt="Logo da 2KGames"
           /></a>
           <button class="icon-btn close-sidebar-btn" id="close-sidebar-btn">
             &times;
@@ -127,11 +126,17 @@
               <label for="support-subject">Assunto</label>
               <select id="support-subject" required>
                 <option value="">Selecione o Assunto</option>
-                <option value="deposito">Problema com Depósito/Saque</option>
-                <option value="jogo">Dúvida sobre um Jogo</option>
-                <option value="bug">Reportar um Erro (Bug)</option>
-                <option value="sugestao">Sugestão</option>
-                <option value="outro">Outro</option>
+                <option value="Problema com Depósito/Saque">
+                  Problema com Depósito/Saque
+                </option>
+                <option value="Dúvida sobre um Jogo">
+                  Dúvida sobre um Jogo
+                </option>
+                <option value="Reportar um Erro (Bug)">
+                  Reportar um Erro (Bug)
+                </option>
+                <option value="Sugestão">Sugestão</option>
+                <option value="Sem assunto especifico">Outro</option>
               </select>
             </div>
             <div class="input-group">
@@ -139,6 +144,7 @@
               <textarea id="support-message" rows="6" required></textarea>
             </div>
             <div class="form-actions">
+              <span id="support-feedback" class="feedback-message"></span>
               <button type="submit" class="btn-save-changes">
                 Enviar Mensagem
               </button>
@@ -149,6 +155,10 @@
     </div>
 
     <script src="config.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
     <script src="dashboard.js"></script>
   </body>
 </html>

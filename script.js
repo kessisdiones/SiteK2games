@@ -3,35 +3,29 @@
 // ===================================================
 window.gameData = window.gameData || {
   1: {
-    title: "Dama",
     image: "Imagens/Dama.svg",
     description:
       "<strong>🎯 Objetivo do Jogo:</strong><br>O objetivo é capturar todas as peças do seu oponente ou bloqueá-las de forma que ele não possa fazer mais nenhum movimento.<br><br><strong>♟️ O Tabuleiro e as Peças:</strong><br>O jogo acontece em um tabuleiro de 8x8 casas claras e escuras. Cada jogador começa com 12 peças (pedras), posicionadas apenas nas casas escuras das três primeiras fileiras do seu lado.<br><br><strong>🧩 Regras de Movimento:</strong><br><ul><li><strong>Movimento Simples:</strong> As peças comuns se movem apenas uma casa na diagonal, para frente, em direção ao lado do oponente.</li><li><strong>Captura:</strong> Para capturar, uma peça sua deve 'pular' por cima da peça do adversário, caindo na casa vazia logo atrás. A peça capturada é removida do jogo. É possível realizar múltiplas capturas em uma única jogada, se as condições permitirem.</li><li><strong>Tornando-se Dama:</strong> Quando uma peça sua alcança a última fileira do lado do oponente, ela é coroada e se torna uma 'Dama'.</li><li><strong>Movimento da Dama:</strong> A Dama é mais poderosa! Ela pode se mover na diagonal para frente e para trás, por quantas casas quiser, desde que o caminho esteja livre.</li></ul><br><strong>🏆 Como Vencer:</strong><br>Você vence a partida ao deixar seu oponente sem peças no tabuleiro ou sem a possibilidade de realizar qualquer movimento legal.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00.",
   },
   2: {
-    title: "Jogo da velha 2.0",
     image: "Imagens/Jogodavelha.svg",
     description:
       "<strong>🎯 Objetivo:</strong><br>O seu objetivo é ser o primeiro a formar uma linha (horizontal, vertical ou diagonal) com três peças da sua cor.<br><br><strong>🧩 A Regra Mais Importante (Sobreposição):</strong><br>Esta não é uma partida comum. Cada jogador tem 6 peças de 3 tamanhos diferentes (grandes, médias e pequenas). A grande virada do jogo é que uma peça maior pode ser colocada por cima de uma peça menor que já está no tabuleiro.<br><br>Peça Grande (3): Cobre peças médias (2) e pequenas (1).<br>Peça Média (2): Cobre apenas peças pequenas (1).<br>Peça Pequena (1): Só pode ser colocada em espaços vazios.<br><br><strong>🏆 Como Vencer ou Perder:</strong><br>Vitória: Você vence ao fazer 3 peças em linha ou se o tempo do seu oponente acabar.<br>Derrota por Tempo: Cada jogador tem 30 segundos para fazer sua jogada. Se o seu tempo esgotar, você perde a partida na hora.<br><br><strong>💰 A Aposta:</strong><br>O vencedor da partida recebe 90% do valor total apostado. Os outros 10% são uma taxa da plataforma. Por exemplo, em uma aposta de R$ 20,00, o prêmio para o vencedor é de R$ 18,00.",
   },
 
   3: {
-    title: "PUXA-PUXA",
     image: "Imagens/Puxa-puxa.svg",
     description: "Uma batalha épica com heróis de diversos universos.",
   },
   4: {
-    title: "Conflito das Sombras",
     image: "Imagens/jogo4.svg",
     description: "Um jogo de furtividade e estratégia.",
   },
   5: {
-    title: "Odisseia Espacial",
     image: "Imagens/jogo5.svg",
     description: "Comande sua frota em batalhas estelares.",
   },
   6: {
-    title: "Lendas Místicas",
     image: "Imagens/jogo6.svg",
     description: "Explore um mundo de magia e criaturas fantásticas.",
   },
@@ -416,6 +410,66 @@ document.addEventListener("DOMContentLoaded", function () {
             submitButton.textContent = "Criar Conta";
           });
       });
+    }
+  }
+
+  // ===================================================
+  // LÓGICA DO FORMULÁRIO DE SUPORTE
+  // ===================================================
+  const supportForm = document.getElementById("support-form");
+
+  if (supportForm) {
+    // Verifica se a biblioteca EmailJS foi carregada
+    if (typeof emailjs !== "undefined") {
+      emailjs.init({
+        publicKey: "iqzxw-9AGbBVRR8Rk", // Chave pública do EmailJS
+      });
+
+      supportForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Seletor do botão corrigido de '.btn-save-changes' para '.btn-entrar'
+        const submitButton = this.querySelector(".btn-entrar");
+        const originalButtonText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = "Enviando...";
+
+        const feedbackEl = document.getElementById("support-feedback");
+        feedbackEl.textContent = ""; // Limpa a mensagem anterior
+
+        const serviceID = "service_2fcvb3n"; // ID do serviço do EmailJS
+        const templateID = "template_td3d41d"; // ID do template do EmailJS
+
+        const templateParams = {
+          from_name: document.getElementById("support-name").value,
+          from_email: document.getElementById("support-email").value,
+          subject: document.getElementById("support-subject").value,
+          message: document.getElementById("support-message").value,
+        };
+
+        emailjs
+          .send(serviceID, templateID, templateParams)
+          .then(
+            (response) => {
+              console.log("SUCCESS!", response.status, response.text);
+              feedbackEl.textContent = "Mensagem enviada com sucesso!";
+              feedbackEl.style.color = "#2ecc71"; // Verde
+              supportForm.reset();
+            },
+            (error) => {
+              console.error("FAILED...", error);
+              feedbackEl.textContent =
+                "Erro ao enviar a mensagem. Tente novamente.";
+              feedbackEl.style.color = "#E03131"; // Vermelho
+            }
+          )
+          .finally(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          });
+      });
+    } else {
+      console.error("A biblioteca EmailJS não foi carregada.");
     }
   }
 });

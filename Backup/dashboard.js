@@ -199,12 +199,16 @@ document.addEventListener("DOMContentLoaded", function () {
           Pendente: "status-pending",
           Cancelado: "status-cancelled",
         }[tx.status] || "";
+      const amountColorClass = tx.amount < 0 ? "text-danger" : "text-success";
       historyTableBody.innerHTML += `<tr><td>${tx.type}</td><td>${
         tx.date
-      }</td><td>${tx.amount.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })}</td><td><span class="status ${statusClass}">${
+      }</td><td class="${amountColorClass}">${tx.amount.toLocaleString(
+        "pt-BR",
+        {
+          style: "currency",
+          currency: "BRL",
+        }
+      )}</td><td><span class="status ${statusClass}">${
         tx.status
       }</span></td></tr>`;
     });
@@ -331,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
     settingsForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const newSettings = {
-        nickname: document.getElementById("nickname").value,
+        nickname: document.getElementById("userNickname").value,
         currentPassword: document.getElementById("current-password").value,
         newPassword: document.getElementById("new-password").value,
         emailNotifications: document.getElementById("email-notifications")
@@ -342,6 +346,65 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
       alert("Alterações salvas com sucesso! (Simulação)");
+    });
+  }
+
+  // ===================================================
+  // LÓGICA DO FORMULÁRIO DE SUPORTE
+  // ===================================================
+  const supportForm = document.getElementById("support-form");
+
+  if (supportForm) {
+    // IMPORTANTE: Insira sua "Public Key" do EmailJS aqui.
+    // Veja o Passo 2 no guia para saber como obter esta chave.
+    emailjs.init({
+      publicKey: "iqzxw-9AGbBVRR8Rk", // <-- TROQUE POR SUA CHAVE
+    });
+
+    supportForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const submitButton = this.querySelector(".btn-save-changes");
+      const originalButtonText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando...";
+
+      // IMPORTANTE:
+      // - Troque 'SEU_SERVICE_ID' pelo ID do seu serviço de e-mail no EmailJS.
+      // - Troque 'SEU_TEMPLATE_ID' pelo ID do seu template de e-mail no EmailJS.
+      // Veja o Passo 2 no guia para obter esses IDs.
+      const serviceID = "service_2fcvb3n";
+      const templateID = "template_td3d41d";
+
+      const templateParams = {
+        from_name: document.getElementById("support-name").value,
+        from_email: document.getElementById("support-email").value,
+        subject: document.getElementById("support-subject").value,
+        message: document.getElementById("support-message").value,
+      };
+
+      emailjs
+        .send(serviceID, templateID, templateParams)
+        .then(
+          (response) => {
+            console.log("SUCCESS!", response.status, response.text);
+            const feedbackEl = document.getElementById("support-feedback");
+            feedbackEl.textContent = "Mensagem enviada com sucesso!";
+            feedbackEl.classList.remove("error");
+            supportForm.reset();
+          },
+          (error) => {
+            console.error("FAILED...", error);
+            const feedbackEl = document.getElementById("support-feedback");
+            feedbackEl.textContent =
+              "Erro ao enviar a mensagem. Tente novamente.";
+            feedbackEl.classList.add("error");
+          }
+        )
+        .finally(() => {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        });
     });
   }
 
@@ -467,6 +530,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     openDepositBtns.forEach((btn) => btn.addEventListener("click", openModal1));
+    // --- BOTÃO "FECHAR" NA CONFIRMAÇÃO DO DEPÓSITO ---
+    const confirmCloseBtnConf = document.getElementById(
+      "close-confirmation-btn"
+    );
+    if (confirmCloseBtnConf) {
+      confirmCloseBtnConf.addEventListener("click", () => {
+        closeModal2();
+      });
+    }
+
+    // --- BOTÃO "SIMULAR CONFIRMAÇÃO" ---
+    const simulateConfirmBtn = document.getElementById("simulate-confirm-btn");
+    if (simulateConfirmBtn) {
+      simulateConfirmBtn.addEventListener("click", () => {
+        paymentView.classList.add("hidden");
+        confirmationView.classList.remove("hidden");
+        depositModal2.querySelector(".close-button").classList.remove("hidden");
+      });
+    }
+
+    // --- BOTÃO "FECHAR" NA CONFIRMAÇÃO DO DEPÓSITO ---
+    const confirmCloseBtn = depositModal2.querySelector(".close-button");
+    if (confirmCloseBtn) {
+      confirmCloseBtn.addEventListener("click", () => {
+        closeModal2();
+      });
+    }
+
     depositModal1
       .querySelector(".close-button")
       .addEventListener("click", closeModal1);
@@ -705,9 +796,10 @@ if (openGameButton) {
     // 1. Pega os dados do usuário que já estão salvos no navegador
     const token = localStorage.getItem("userToken");
     const nickname = localStorage.getItem("userNickname") || "Jogador";
+    const playerID = localStorage.getItem("userId"); // <-- ADICIONADO: Pega o ID do jogador
 
-    // Segurança: Verifica se o token existe antes de abrir o jogo
-    if (!token) {
+    // Segurança: Verifica se o token e o ID existem antes de abrir o jogo
+    if (!token || !playerID) {
       alert("Erro de autenticação. Por favor, faça login novamente.");
       return;
     }
@@ -715,11 +807,11 @@ if (openGameButton) {
     // 2. Pega a URL base do jogo que guardamos no passo anterior
     const baseUrl = this.dataset.gameUrl;
 
-    // 3. Monta a URL final com os parâmetros
+    // 3. Monta a URL final com os parâmetros, incluindo o playerID
     // Usamos encodeURIComponent para garantir que nomes com espaços ou caracteres especiais funcionem
     const finalGameUrl = `${baseUrl}?token=${token}&nickname=${encodeURIComponent(
       nickname
-    )}`;
+    )}&playerID=${playerID}`; // <-- MODIFICADO: Adiciona o playerID à URL
 
     console.log("Abrindo jogo com a URL:", finalGameUrl); // Ótimo para depuração!
 

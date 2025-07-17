@@ -37,6 +37,20 @@
   resize: vertical;
   min-height: 150px;
 }
+.feedback-message {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 500;
+  color: #00e676; /* Verde para mensagem de sucesso */
+  display: block;
+  vertical-align: middle;
+}
+
+.feedback-message.error {
+  color: #ff5252; /* Vermelho para erro */
+}
 
 @media (max-width: 600px) {
   .page-header h1 {
