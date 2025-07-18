@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
   }
-  //=================Logica para modal de registro===========//
+  ///================= Lógica para modal de registro ===========//
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
     const passwordInput = document.getElementById("register-password");
@@ -302,8 +302,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitButton = document.getElementById("register-submit-btn");
     const cpfInput = document.getElementById("cpf-input");
     const phoneInput = document.getElementById("phone-input");
-
+    const nicknameInput = document.getElementById("register-nome");
     const errorMsg = document.getElementById("register-error");
+
     registerForm.querySelectorAll("input, select").forEach((input) => {
       input.addEventListener("input", () => {
         if (errorMsg) errorMsg.classList.add("hidden");
@@ -315,6 +316,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const phoneMask = IMask(phoneInput, { mask: "(00) 00000-0000" });
 
       function validateForm() {
+        const nicknameValue = nicknameInput.value.trim();
+        const wordsInNickname =
+          nicknameValue === "" ? 0 : nicknameValue.split(/\s+/).length;
+        const isNicknameValid = wordsInNickname <= 2;
+
         const passwordsMatch =
           passwordInput.value === confirmPasswordInput.value &&
           passwordInput.value.length > 0;
@@ -322,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const phoneComplete = phoneMask.unmaskedValue.length === 11;
         const termsAccepted = termsCheckbox.checked;
 
+        // --- Feedback visual: campo de senha
         if (confirmPasswordInput.value.length > 0) {
           confirmPasswordInput.style.borderColor = passwordsMatch
             ? "#3E4553"
@@ -329,11 +336,34 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           confirmPasswordInput.style.borderColor = "#3E4553";
         }
+
+        // --- Feedback visual e mensagem: campo de nome
+        if (nicknameValue.length > 0) {
+          const isValid = wordsInNickname <= 2;
+          nicknameInput.style.borderColor = isValid ? "#3E4553" : "#E03131";
+
+          if (!isValid) {
+            nicknameInput.setCustomValidity(
+              "O nome deve conter no máximo duas palavras."
+            );
+
+            // Mostra imediatamente o balão nativo
+            nicknameInput.reportValidity();
+          } else {
+            nicknameInput.setCustomValidity("");
+          }
+        } else {
+          nicknameInput.style.borderColor = "#3E4553";
+          nicknameInput.setCustomValidity("");
+        }
+
+        // --- Habilitar ou desabilitar botão de envio
         submitButton.disabled = !(
           passwordsMatch &&
           cpfComplete &&
           phoneComplete &&
-          termsAccepted
+          termsAccepted &&
+          isNicknameValid
         );
       }
 
@@ -341,23 +371,17 @@ document.addEventListener("DOMContentLoaded", function () {
       validateForm();
 
       registerForm.addEventListener("submit", function (event) {
+        if (!registerForm.checkValidity()) return registerForm.reportValidity(); // exibe balão
         event.preventDefault();
 
         const formData = {
           email: document.getElementById("register-email").value,
-          password: document.getElementById("register-password").value,
+          password: passwordInput.value,
           cpf: cpfMask.unmaskedValue,
           phoneNumber: phoneMask.unmaskedValue,
           nationality: document.getElementById("register-nationality").value,
-          nickname: document.getElementById("register-nome").value,
+          nickname: nicknameInput.value.trim(),
         };
-
-        /*const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    alert("Por favor, confirme que você não é um robô.");
-                    return;
-                }*/
-        //formData.recaptchaToken = recaptchaResponse;
 
         submitButton.disabled = true;
         submitButton.textContent = "Criando conta...";
@@ -375,36 +399,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             return response.text();
           })
-          .then((textResponse) => {
-            const errorMsg = document.getElementById("register-error");
+          .then(() => {
             if (errorMsg) {
               errorMsg.textContent =
                 "Conta criada com sucesso! Faça login para continuar.";
               errorMsg.classList.remove("hidden");
-              errorMsg.style.color = "#2ecc71"; // verde de sucesso
+              errorMsg.style.color = "#2ecc71";
             }
 
-            // Aguarda 2 segundos antes de trocar o modal
             setTimeout(() => {
               closeRegisterModal();
               openLoginModal();
 
-              // Limpa o campo de mensagem ao abrir o modal de login
               if (errorMsg) {
                 errorMsg.textContent = "";
                 errorMsg.classList.add("hidden");
-                errorMsg.style.color = ""; // resetando cor
+                errorMsg.style.color = "";
               }
             }, 3000);
           })
           .catch((error) => {
-            const errorMsg = document.getElementById("register-error");
             if (errorMsg) {
               errorMsg.textContent = error.message;
               errorMsg.classList.remove("hidden");
+              errorMsg.style.color = "#E03131";
             }
           })
-
           .finally(() => {
             submitButton.disabled = false;
             submitButton.textContent = "Criar Conta";

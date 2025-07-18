@@ -31,7 +31,8 @@ a {
 }
 
 .logo img {
-  height: 30px;
+  height: 40px;
+  margin: 5px;
   width: auto;
   display: block;
 }
@@ -747,6 +748,7 @@ a {
   .logo img {
     height: 30px;
     width: auto;
+    margin: 10px;
     display: block;
   }
 
