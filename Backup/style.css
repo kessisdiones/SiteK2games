@@ -31,7 +31,8 @@ a {
 }
 
 .logo img {
-  height: 60px;
+  height: 40px;
+  margin: 5px;
   width: auto;
   display: block;
 }
@@ -745,8 +746,9 @@ a {
   }
 
   .logo img {
-    height: 50px;
+    height: 30px;
     width: auto;
+    margin: 10px;
     display: block;
   }
 
@@ -764,6 +766,24 @@ a {
     height: 100%;
     margin: 0 auto;
     margin-top: 10px;
+  }
+
+  .swiper-button-prev {
+    width: 50px;
+    height: 50px;
+  }
+
+  .swiper-button-prev::after {
+    font-size: 25px;
+    color: white; /* ou qualquer cor que combine com o seu site */
+  }
+  .swiper-button-next {
+    width: 50px;
+    height: 50px;
+  }
+
+  .swiper-button-next::after {
+    font-size: 25px;
   }
 
   .swiper-container-mask {
@@ -865,6 +885,17 @@ a {
     color: #00bfff; /* Cor dos ícones */
     margin-bottom: 20px;
   }
+
+  .how-it-works-card h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .how-it-works-card p {
+    font-size: 14px; /* Standardized */
+    color: #adb5bd;
+    line-height: 1.6;
+  }
   .icone-titulo {
     display: flex;
     align-items: center;
@@ -875,5 +906,17 @@ a {
     /* Podemos diminuir o espaçamento lateral no celular */
     padding: 20px 20px;
     margin-top: 30px;
+  }
+
+  .how-it-works-section h2 {
+    font-size: 16px; /* Standardized */
+    margin-bottom: 10px;
+  }
+
+  .section-subtitle {
+    color: #ced4da;
+    max-width: 600px;
+    margin: 0 auto 40px auto; /* Centraliza o subtítulo */
+    font-size: 14px; /* Standardized */
   }
 }
