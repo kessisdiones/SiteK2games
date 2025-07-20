@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         status: "Conclu\xeddo",
       },
     ].forEach((e) => {
+      const safetype = sanitizeHTML(e.type);
       let t =
           {
             Concluído: "status-completed",
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Cancelado: "status-cancelled",
           }[e.status] || "",
         a = e.amount < 0 ? "text-danger" : "text-success";
-      m.innerHTML += `<tr><td>${e.type}</td><td>${
+      m.innerHTML += `<tr><td>${safetype}</td><td>${
         e.date
       }</td><td class="${a}">${e.amount.toLocaleString("pt-BR", {
         style: "currency",
@@ -224,24 +225,26 @@ document.addEventListener("DOMContentLoaded", function () {
         date: "18/06/2025",
       },
     ].forEach((e) => {
+      const safeGameName = sanitizeHTML(e.gameName);
+      const safeOpponent = sanitizeHTML(e.opponent);
       let t = e.result,
         a = e.amount > 0 ? "+" : "",
         n = `
                     <div class="match-card ${t}">
-                        <div class="match-info">
-                            <span class="game-name">${e.gameName}</span>
-                            <span class="opponent-info">vs ${e.opponent}</span>
-                        </div>
-                        <div class="match-result">
-                            <strong class="match-amount ${t}">
-                                ${a}${e.amount.toLocaleString("pt-BR", {
+                  <div class="match-info">
+                      <span class="game-name">${safeGameName}</span>
+                      <span class="opponent-info">vs ${safeOpponent}</span>
+                  </div>
+                  <div class="match-result">
+                      <strong class="match-amount ${t}">
+                          ${a}${e.amount.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         })}
-                            </strong>
-                            <span class="match-date">${e.date}</span>
-                        </div>
-                    </div>
+                      </strong>
+                      <span class="match-date">${sanitizeHTML(e.date)}</span>
+                  </div>
+              </div>
                 `;
       c.innerHTML += n;
     }));

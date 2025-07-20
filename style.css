@@ -60,8 +60,8 @@ a {
   border: 1px solid #009acd;
 }
 .main-nav .btn-login:hover {
-  background-color: #eaeaea;
-  color: #2e343d;
+  background-color: #569afe65;
+  color: #ffffff;
 }
 .main-nav .btn-register {
   background-color: #00bfff;
@@ -94,19 +94,18 @@ a {
 .info-bar {
   justify-content: space-around;
   text-align: center;
-  background: linear-gradient(0deg, #223e4a, #346377);
+  background: linear-gradient(87deg, #223e4a, #0c161a);
   color: #fff;
-  padding: 15px 40px;
+  padding: 10px 40px;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
-  margin: 15px auto 20px;
+  gap: 0px;
+  margin: 15px auto 15px;
   width: 90%;
   border-radius: 10px;
 }
 .info-item {
   align-items: center;
-  gap: 12px;
   font-size: 14px;
   font-weight: 600;
 }
@@ -124,10 +123,7 @@ a {
   color: #ccc;
   margin-top: 4px;
 }
-.info-item svg {
-  width: 28px;
-  height: 28px;
-}
+
 .games-section {
   width: 90%;
   margin: auto;
@@ -203,9 +199,11 @@ a {
   font-weight: 600;
 }
 .footer-center {
+  align-items: center; /* Isso alinha itens flex verticalmente, não o texto */
   color: #868e96;
   font-size: 14px;
-  margin-top: 80px;
+  margin-top: 10px;
+  text-align: center; /* Adicione esta linha */
 }
 .footer-right {
   display: flex;
@@ -300,20 +298,20 @@ a {
 }
 .modal-content {
   background-color: #1a1d23;
-  padding: 40px;
+  padding: 15px 40px;
   border-radius: 16px;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   position: relative;
   color: #eaeaea;
   text-align: center;
-  max-height: 90vh;
+  max-height: 100vh;
   overflow-y: auto;
 }
 .modal-content h2 {
   font-size: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   text-align: left;
 }
 .close-button {
@@ -642,7 +640,7 @@ a {
   .main-banner.swiper {
     width: 100%;
     border-radius: 0;
-    height: 100%;
+    height: auto;
     margin: 10px auto 0;
   }
   .swiper-button-next,
@@ -663,7 +661,7 @@ a {
     overflow: hidden;
   }
   .info-bar {
-    background: linear-gradient(0deg, #223e4a, #346377);
+    background: linear-gradient(87deg, #223e4a, #0c161a);
     color: #fff;
     padding: 9px;
     display: flex;
@@ -695,6 +693,7 @@ a {
     gap: 25px;
     text-align: center;
   }
+
   .footer-right {
     align-items: center;
   }
@@ -702,7 +701,8 @@ a {
     order: 3;
     color: #868e96;
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 15px;
+    text-align: center;
   }
   .modal-content h2 {
     font-size: 20px;
@@ -768,4 +768,60 @@ a {
     margin: 0 auto 40px;
     font-size: 14px;
   }
+}
+
+/* Selos de Confiança */
+.trust-seals {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+}
+.trust-seals .seal {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #91bfcf;
+}
+
+/* Feed de Atividades */
+.activity-feed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 191, 255, 0.95);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  animation: fadeInOut 8s ease-in-out forwards;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Multi-step Modal */
+.step {
+  display: none;
+}
+.step.active {
+  display: block;
 }

@@ -26,6 +26,7 @@ window.gameData = window.gameData || {
     description: "Explore um mundo de magia e criaturas fant\xe1sticas.",
   },
 };
+
 let gamesSwiperInstance;
 function initGamesSwiper() {
   let e = window.innerWidth <= 768;
@@ -178,7 +179,8 @@ window.addEventListener("load", initGamesSwiper),
               .catch((e) => {
                 let a = document.getElementById("login-error");
                 a &&
-                  ((a.textContent = e.message), a.classList.remove("hidden")),
+                  ((a.textContent = sanitizeHTML(e.message)),
+                  a.classList.remove("hidden")),
                   (b.disabled = !1),
                   (b.textContent = "Entrar");
               });
@@ -253,7 +255,9 @@ window.addEventListener("load", initGamesSwiper),
                   e.ok
                     ? e.text()
                     : e.json().then((e) => {
-                        throw Error(e.message || "Erro ao criar conta.");
+                        throw Error(
+                          sanitizeHTML(e.message) || "Erro ao criar conta."
+                        );
                       })
                 )
                 .then(() => {
@@ -273,7 +277,7 @@ window.addEventListener("load", initGamesSwiper),
                 })
                 .catch((e) => {
                   _ &&
-                    ((_.textContent = e.message),
+                    ((_.textContent = sanitizeHTML(e.message)),
                     _.classList.remove("hidden"),
                     (_.style.color = "#E03131"));
                 })
@@ -321,4 +325,52 @@ window.addEventListener("load", initGamesSwiper),
               });
           }))
         : console.error("A biblioteca EmailJS n\xe3o foi carregada."));
+
+    // Feed de Atividade em Tempo Real
+    const activityFeed = document.getElementById("activity-feed");
+    const fakeActivities = [
+      "Carlos faturou R$ 9,00 no Jogo da Velha 2.0!",
+      "Mariana faturou R$ 22,50 na Dama!",
+      "João faturou R$ 22,5 no Pull-Party!",
+      "Ana faturou R$ 7,20 agora!",
+      "Pedro faturou R$ 27,00 na Corrida Premiada!",
+      "Lucas faturou R$ 18,00 no Jogo da Velha 2.0!",
+      "Beatriz faturou R$ 10,8 na Corrida Premiada!",
+      "André faturou R$ 21,50 no Pull-Party!",
+      "Fernanda acabou de faturar R$ 8,70 na Dama!",
+      "Rafael faturou R$ 16,00 no Jogo da Velha 2.0!",
+      "Juliana faturou R$ 10,30 agora mesmo!",
+      "Marcelo acabou de faturar R$ 25,00 na Corrida Premiada!",
+      "Camila faturou R$ 19,80 na Dama!",
+      "Eduardo faturou R$ 14,20 no Pull-Party!",
+      "Patrícia acabou de faturar R$ 6,90 na Corrida Premiada!",
+      "Renan faturou R$ 11,00 no Jogo da Velha 2.0!",
+      "Larissa faturou R$ 23,50 no Pull-Party!",
+      "Gustavo faturou R$ 9,40 na Dama!",
+      "Isabela faturou R$ 15,60 no Jogo da Velha 2.0!",
+      "Tiago faturou R$ 28,00 agora!",
+    ];
+
+    function showActivityMessage() {
+      if (!activityFeed) return;
+      const msg =
+        fakeActivities[Math.floor(Math.random() * fakeActivities.length)];
+      activityFeed.textContent = msg;
+      activityFeed.classList.remove("hidden");
+
+      // Define um tempo aleatório entre 10 e 30 segundos para a próxima mensagem
+      const randomDelay =
+        Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000; // Milissegundos
+
+      setTimeout(() => {
+        activityFeed.classList.add("hidden");
+        // Chama a função novamente após o atraso aleatório
+        setTimeout(showActivityMessage, randomDelay);
+      }, 8000); // Esconde a mensagem após 8 segundos
+    }
+
+    // Inicia a primeira mensagem após um tempo inicial aleatório (ex: entre 5 e 10 segundos)
+    const initialRandomDelay =
+      Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+    setTimeout(showActivityMessage, initialRandomDelay);
   });

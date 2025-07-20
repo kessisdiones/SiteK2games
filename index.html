@@ -36,16 +36,40 @@
       <div class="swiper main-banner">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <img src="Imagens/Banners/Banner1.svg" alt="Banner 1" />
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="Imagens/Banners/Banner1-mobile.svg"
+              />
+              <img src="Imagens/Banners/Banner1.svg" alt="Banner 1" />
+            </picture>
           </div>
           <div class="swiper-slide">
-            <img src="Imagens/Banners/Banner2.svg" alt="Banner 2" />
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="Imagens/Banners/Banner2-mobile.svg"
+              />
+              <img src="Imagens/Banners/Banner2.svg" alt="Banner 2" />
+            </picture>
           </div>
           <div class="swiper-slide">
-            <img src="Imagens/Banners/Banner3.svg" alt="Banner 3" />
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="Imagens/Banners/Banner3-mobile.svg"
+              />
+              <img src="Imagens/Banners/Banner3.svg" alt="Banner 3" />
+            </picture>
           </div>
           <div class="swiper-slide">
-            <img src="Imagens/Banners/Banner4.svg" alt="Banner 4" />
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="Imagens/Banners/Banner4-mobile.svg"
+              />
+              <img src="Imagens/Banners/Banner4.svg" alt="Banner 4" />
+            </picture>
           </div>
         </div>
         <div class="swiper-button-prev"></div>
@@ -112,10 +136,8 @@
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
           <div class="text-group">
-            <span>Não é um cassino</span>
-            <p class="subtext">
-              Jogo estratégico e divertido sem aposta viciantes.
-            </p>
+            <span>Não somos um cassino</span>
+            <p class="subtext">Sem algoritmos programado para você perder.</p>
           </div>
         </div>
       </section>
@@ -281,8 +303,50 @@
             <span>Responsabilidade</span>
           </div>
         </div>
+
         <div class="footer-center">
-          <p>&copy; 2025 K2Games. Todos os direitos reservados.</p>
+          <div class="trust-seals">
+            <div class="seal">
+              <img
+                src="Imagens/cadeado.png"
+                alt="Seguro"
+                style="
+                  width: 40px;
+                  height: 40px;
+                  vertical-align: middle;
+                  margin-right: 5px;
+                "
+              />
+              100% Seguro
+            </div>
+            <div class="seal">
+              <img
+                src="Imagens/verificado.png"
+                alt="Verificado"
+                style="
+                  width: 40px;
+                  height: 40px;
+                  vertical-align: middle;
+                  margin-right: 5px;
+                "
+              />
+              Verificado
+            </div>
+            <div class="seal">
+              <img
+                src="Imagens/pix.png"
+                alt="Pagamentos Rápidos"
+                style="
+                  width: 80px;
+                  height: auto;
+                  vertical-align: middle;
+                  margin-right: 5px;
+                "
+              />
+              Pagamentos Rápidos
+            </div>
+          </div>
+          <p>© 2025 K2Games. Todos os direitos reservados.</p>
         </div>
         <div class="footer-right">
           <a href="#">Termos de Uso - Política de Privacidade</a>
@@ -291,6 +355,8 @@
         </div>
       </div>
     </footer>
+
+    <div class="activity-feed hidden" id="activity-feed"></div>
 
     <div id="login-modal-overlay" class="modal-overlay hidden">
       <div class="modal-content">
@@ -328,14 +394,14 @@
 
           <button type="submit" class="btn-modal btn-entrar">Entrar</button>
 
-          <!--<div class="separator"><span>OU</span></div>
+          <div class="separator"><span>OU</span></div>
 
           <div class="google-btn-wrapper">
             <button type="button" class="btn-modal btn-google">
               <img src="Imagens/G google.png" alt="Logo do Google" /> Entrar com
               o Google
             </button>
-          </div>-->
+          </div>
         </form>
         <p class="signup-link">
           Ainda não possui um cadastro?

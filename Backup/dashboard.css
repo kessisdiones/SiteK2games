@@ -1,28 +1,27 @@
-/* --- Estrutura Principal do Dashboard --- */
+.dashboard-container,
+.sidebar,
+.sidebar-header,
+.sidebar-top {
+  display: flex;
+}
+#game-view-container,
 body {
   background-color: #060606;
 }
-.dashboard-container {
-  display: flex;
-}
-
-/* --- Menu Lateral (Sidebar) --- */
 .sidebar {
   width: 260px;
   height: 100vh;
   background: linear-gradient(225deg, #223e4a, #0c161a);
   padding: 15px;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 200; /* Z-index alto para ficar acima de tudo */
-  transition: transform 0.3s ease;
+  z-index: 200;
+  transition: transform 0.3s;
 }
 .sidebar-header {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
@@ -32,7 +31,6 @@ body {
   margin-bottom: 30px;
 }
 .sidebar-top {
-  display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
@@ -48,7 +46,12 @@ body {
   font-weight: 700;
   border-radius: 8px;
   margin-bottom: 5px;
-  transition: all 0.3s ease;
+  transition: 0.3s;
+}
+.logout-btn,
+.profile-info {
+  display: flex;
+  align-items: center;
 }
 .sidebar-nav li a svg {
   margin-right: 15px;
@@ -56,19 +59,17 @@ body {
 }
 .sidebar-nav li a:hover {
   background-color: #2e343d;
-  color: #ffffff;
+  color: #fff;
 }
 .sidebar-nav li.active a {
   background-color: #00bfff;
-  color: #ffffff;
+  color: #fff;
 }
 .sidebar-bottom {
   border-top: 1px solid #3e4553;
   padding-top: 20px;
 }
 .profile-info {
-  display: flex;
-  align-items: center;
   gap: 10px;
   margin-bottom: 5px;
 }
@@ -83,13 +84,16 @@ body {
   color: #eaeaea;
 }
 .logout-btn {
-  display: flex;
-  align-items: center;
   width: 100%;
   padding: 12px 0;
   color: #868e96;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
+}
+.desktop-online,
+.online-count {
+  align-items: center;
+  display: flex;
 }
 .logout-btn:hover {
   color: #e03131;
@@ -97,79 +101,67 @@ body {
 .logout-btn svg {
   margin-right: 10px;
 }
-
-/* Botão de fechar (escondido por padrão no desktop) */
 .close-sidebar-btn {
-  display: none; /* Mantém escondido no desktop */
-
-  /* --- PROPRIEDADES DE POSICIONAMENTO ADICIONADAS --- */
-  position: absolute; /* <<-- Desprende o botão do fluxo normal */
-  top: 1px; /* <<-- Distância do topo do menu */
-  right: 15px; /* <<-- Distância da esquerda do menu */
-
-  /* Estilos visuais que você já tinha */
-  background: none;
+  display: none;
+  position: absolute;
+  top: 1px;
+  right: 15px;
+  background: 0 0;
   border: none;
   color: #adb5bd;
   cursor: pointer;
   font-size: 36px;
   line-height: 1;
-  z-index: 201; /* Garante que ele fique acima de outros itens da sidebar */
+  z-index: 201;
 }
-.close-sidebar-btn:hover {
-  color: #ffffff;
-}
-/*========== pessoas Online ============*/
-.online-count {
-  background-color: #4caf50; /* Verde ou outra cor desejada */
-  color: white;
-  padding: 10px 10px;
-  margin-left: 1px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.desktop-online {
-  display: flex;
-  align-items: center;
-  gap: 1px; /* Espaço entre o ícone e o número */
-}
-.desktop-online .icon-btn svg {
-  stroke: white;
-}
-
-.desktop-online .icon-btn {
-  background: transparent;
-  border: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-#online-count-desktop {
-  font-weight: bold;
-  font-size: 14px;
-  background-color: #4caf50; /* Verde ou outra cor desejada */
-  color: white;
-  padding: 4px 10px;
-  border-radius: 5px;
-}
-
-/* --- Overlay (Fundo Desfocado) --- */
+#game-view-container,
 .sidebar-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+#online-count-desktop,
+.online-count {
+  font-weight: 700;
+  font-size: 14px;
+  background-color: #4caf50;
+  color: #fff;
+}
+#cancel-game-btn,
+.close-sidebar-btn:hover {
+  color: #fff;
+}
+.online-count {
+  padding: 10px;
+  margin-left: 1px;
+  border-radius: 5px;
+  justify-content: center;
+}
+.desktop-online {
+  gap: 1px;
+}
+.desktop-online .icon-btn svg {
+  stroke: white;
+}
+.desktop-online .icon-btn {
+  background: 0 0;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+#online-count-desktop {
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+.sidebar-overlay {
   background-color: rgba(10, 20, 30, 0.6);
   backdrop-filter: blur(5px);
   z-index: 199;
   opacity: 1;
-  transition: opacity 0.3s ease, visibility 0.3s;
+  transition: opacity 0.3s, visibility 0.3s;
   visibility: visible;
 }
 .sidebar-overlay.hidden {
@@ -177,30 +169,31 @@ body {
   visibility: hidden;
   pointer-events: none;
 }
-
-/* --- Cabeçalho Mobile (Escondido no Desktop por Padrão) --- */
-.mobile-header {
-  display: none; /* ESTA É A LINHA MAIS IMPORTANTE */
-  /* Outros estilos como position, padding, etc., só serão ativados no @media */
+#game-view-container.hidden,
+.mobile-header,
+.mobile-menu-btn {
+  display: none;
 }
-
-/* --- Área de Conteúdo Principal --- */
 .dashboard-main-content {
   margin-left: 260px;
   flex: 1;
-  padding: 0px 0px 40px 0px; /* 0px no topo, 40px nos outros lados */
+  padding: 0 0 40px;
+}
+.dashboard-header,
+.fee-row {
+  justify-content: space-between;
 }
 .dashboard-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
   background: linear-gradient(45deg, #223e4a, #0c161a);
-  border-radius: 0px;
+  border-radius: 0;
   padding: 10px 20px;
 }
-.mobile-menu-btn {
-  display: none;
+.fee-row:last-child,
+.games-section {
+  margin-bottom: 0;
 }
 .welcome-message h1 {
   font-size: 28px;
@@ -215,11 +208,16 @@ body {
   align-items: center;
   gap: 20px;
 }
-
-.balance-display {
+.balance-display,
+.payment-amount {
   text-align: right;
 }
-.balance-display span {
+#game-modal-title,
+.countdown-timer {
+  text-align: center;
+}
+.balance-display span,
+.payment-amount span {
   font-size: 14px;
   color: #adb5bd;
 }
@@ -231,27 +229,28 @@ body {
 }
 .btn-deposit {
   background-color: #00bfff;
-  color: white;
+  color: #fff;
   padding: 12px 28px;
   border-radius: 8px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
   white-space: nowrap;
+}
+#copy-pix-code-btn,
+.btn-secondary {
+  background-color: #3e4553;
 }
 .btn-deposit:hover {
   background-color: #009acd;
 }
 .games-section {
   margin-top: 40px;
-  margin-bottom: 0px;
 }
 .games-section h2 {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 50px;
 }
-
-/* GRID DE JOGOS */
 .games-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -259,7 +258,7 @@ body {
 }
 .game-card-wrapper {
   width: 100%;
-  aspect-ratio: 220 / 300;
+  aspect-ratio: 220/300;
 }
 .game-card {
   display: block;
@@ -267,7 +266,7 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .game-card:hover {
   transform: scale(1.05);
@@ -279,10 +278,9 @@ body {
   height: 100%;
   object-fit: cover;
 }
-
 #game-modal .modal-content {
-  width: 800px; /* Largura maior */
-  max-width: 95vw; /* Limite para telas pequenas */
+  width: 800px;
+  max-width: 95vw;
   padding: 30px;
   border-radius: 8px;
   box-sizing: border-box;
@@ -291,38 +289,20 @@ body {
 #game-modal-description {
   text-align: justify;
 }
-#game-modal-title {
-  text-align: center;
-}
-#cancel-game-btn {
-  color: white;
-}
-
 .modal-game-img {
   width: 50%;
   max-width: 300px;
   margin: 0 auto 20px;
   display: block;
 }
-
-/* --- ESTILOS ADICIONAIS PARA MODAIS DE DEPÓSITO --- */
-
-/* Botão secundário (Voltar) */
-.btn-secondary {
-  background-color: #3e4553;
-}
 .btn-secondary:hover {
   background-color: #505866;
 }
-
-/* Container para botões lado a lado */
 .modal-actions {
   display: flex;
   gap: 15px;
   margin-top: 20px;
 }
-
-/* Estilos do cálculo de taxas */
 .fee-calculation {
   background-color: #121418;
   border: 1px solid #3e4553;
@@ -330,19 +310,18 @@ body {
   padding: 15px;
   margin: 20px 0;
 }
-.fee-row {
+.fee-row,
+.payment-header {
   display: flex;
-  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.fee-row {
   align-items: center;
   font-size: 14px;
   color: #adb5bd;
-  margin-bottom: 10px;
-}
-.fee-row:last-child {
-  margin-bottom: 0;
 }
 .fee-row.total {
-  color: #ffffff;
+  color: #fff;
   font-weight: 600;
   margin-top: 15px;
   padding-top: 10px;
@@ -351,41 +330,28 @@ body {
 .fee-row.total h2 {
   font-size: 18px;
 }
-
-/* Estilos do Modal 2 (QR Code) */
 .payment-header {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 }
 .pix-logo {
   height: 120px;
-}
-.payment-amount {
-  text-align: right;
-}
-.payment-amount span {
-  font-size: 14px;
-  color: #adb5bd;
 }
 .payment-amount strong {
   font-size: 20px;
   display: block;
 }
-
 .countdown-timer {
   font-size: 14px;
   color: #e03131;
   font-weight: 600;
-  text-align: center;
   margin-bottom: 20px;
 }
 .qr-code-img {
   width: 200px;
   height: 200px;
   display: block;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 20px;
   border-radius: 2px;
 }
 .pix-code-area {
@@ -409,12 +375,10 @@ body {
   padding: 0 15px;
   font-weight: 600;
   border-radius: 8px;
-  background-color: #3e4553;
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
 }
-
 .instructions {
   text-align: left;
   font-size: 14px;
@@ -422,41 +386,32 @@ body {
   padding-left: 20px;
   line-height: 1.6;
 }
-
-/* View de Confirmação */
 .confirmation-icon {
   width: 80px;
   height: 80px;
   display: block;
-  margin: 10px auto 20px auto;
+  margin: 10px auto 20px;
 }
 #confirmation-view h2 {
   text-align: center;
-  color: #2f9e44; /* Verde sucesso */
+  color: #2f9e44;
 }
-
-/* =================================================== */
-/* --- RESPONSIVIDADE APENAS PARA CELULAR (≤1024px) --- */
-/* =================================================== */
 
 @media (max-width: 1024px) {
   .dashboard-main-content {
     padding: 20px;
     margin-left: 0;
   }
-
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-    background: none;
+    background: 0 0;
     border-radius: 0;
     padding: 0;
     margin-bottom: 20px;
     justify-content: flex-start;
   }
-
-  /* --- CABEÇALHO MOBILE --- */
   .mobile-header {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -471,70 +426,58 @@ body {
   .desktop-online {
     display: none !important;
   }
-
-  .mobile-menu-btn,
-  .close-sidebar-btn {
+  .close-sidebar-btn,
+  .mobile-menu-btn {
     display: block;
-    background: none;
+    background: 0 0;
     border: none;
     color: #fefeff;
     cursor: pointer;
   }
-
   .sidebar {
     transform: translateX(-100%);
   }
-
   .sidebar.visible {
     transform: translateX(0);
   }
-
   .sidebar .logo {
     height: 60px;
     display: block;
   }
-
   .welcome-message {
     display: none;
   }
-
   .mobile-header .header-left {
     display: flex;
     justify-content: flex-start;
   }
-
   .mobile-header .header-center {
     display: flex;
     justify-content: center;
   }
-
   .mobile-header .header-right {
     display: flex;
     justify-content: flex-end;
   }
-
   .icon-btn {
-    background: none;
+    background: 0 0;
     border: none;
     color: #e5eef7;
     cursor: pointer;
     padding: 5px;
-    transition: color 0.3s ease;
+    transition: color 0.3s;
   }
-
   .icon-btn:hover {
-    color: #ffffff;
+    color: #fff;
   }
-
   .games-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
-
   .game-card-wrapper {
     width: 100%;
-    aspect-ratio: 220 / 300;
+    aspect-ratio: 220/300;
   }
   .balance-section {
     width: 100%;
@@ -546,19 +489,16 @@ body {
     align-items: center;
     gap: 8px;
   }
-
   .balance-display {
     text-align: center;
     width: 100%;
   }
-
   .balance-display span {
     font-size: 20px;
     font-weight: 600;
     color: #adb5bd;
     display: block;
   }
-
   .balance-display strong {
     display: block;
     font-size: 35px;
@@ -566,7 +506,6 @@ body {
     color: #fff;
     margin-top: 4px;
   }
-
   .btn-deposit {
     width: 70%;
     font-size: 20px;
@@ -577,58 +516,34 @@ body {
     justify-content: center;
     align-items: center;
   }
-
   .close-game-button {
     padding: 8px 14px;
     font-size: 13px;
     top: 8px;
     right: 8px;
   }
-
   #game-view-container {
     padding-top: 0;
   }
 }
-
-/* =================================================== */
-/* ---     ESTILOS PARA A NOVA TELA DE JOGO        --- */
-/* =================================================== */
-
-/* O container que ocupa a tela inteira */
 #game-view-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #060606;
   z-index: 1000;
   display: flex;
   flex-direction: column;
 }
-
-#game-view-container.hidden {
-  display: none;
-}
-
-/* O wrapper que segura o iframe do jogo */
 #game-iframe-wrapper {
   flex-grow: 1;
   width: 100%;
   height: 100%;
 }
-
-/* O iframe do jogo em si */
 #game-iframe-wrapper iframe {
   width: 100%;
   height: 100%;
   border: none;
 }
-
-/* O botão de "Voltar ao Início" */
 .close-game-button {
   background-color: #223e4a;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -639,7 +554,7 @@ body {
   top: 15px;
   right: 20px;
   z-index: 1001;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 .close-game-button:hover {
   background-color: #00bfff;

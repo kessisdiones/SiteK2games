@@ -1,865 +1,614 @@
-// =================================================================
-// SCRIPT ÚNICO PARA TODAS AS PÁGINAS DA ÁREA LOGADA
-// =================================================================
-
 document.addEventListener("DOMContentLoaded", function () {
-  function aplicarMascaraMonetaria(input) {
-    input.addEventListener("input", function (e) {
-      let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for dígito
-      value = (parseInt(value, 10) / 100).toFixed(2); // Divide por 100 para colocar duas casas
-      if (isNaN(value)) value = "0.00";
-      e.target.value = value
-        .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
-        .replace("R$", "") // Remove o "R$" se quiser mostrar só número
-        .trim();
+  function e(e) {
+    e.addEventListener("input", function (e) {
+      let t = e.target.value.replace(/\D/g, "");
+      isNaN((t = (parseInt(t, 10) / 100).toFixed(2))) && (t = "0.00"),
+        (e.target.value = t
+          .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+          .replace("R$", "")
+          .trim());
     });
   }
-
-  // --- SIMULAÇÃO DE PESSOAS ONLINE ---
-  function startOnlineCounter() {
-    let currentCount = Math.floor(500 + Math.random() * 100);
-
-    function updateCount() {
-      const change = Math.floor(Math.random() * 20 - 10); // de -10 a +10
-      currentCount = Math.max(500, Math.min(1000, currentCount + change));
-      document.querySelectorAll(".online-count").forEach((el) => {
-        el.textContent = currentCount;
-      });
+  !(function e() {
+    let t = Math.floor(500 + 100 * Math.random());
+    function a() {
+      (t = Math.max(
+        500,
+        Math.min(1e3, t + Math.floor(20 * Math.random() - 10))
+      )),
+        document.querySelectorAll(".online-count").forEach((e) => {
+          e.textContent = t;
+        });
     }
-
-    updateCount();
-    setInterval(updateCount, 4000);
+    a(), setInterval(a, 4e3);
+  })();
+  let t = document.getElementById("mobile-menu-btn"),
+    a = document.getElementById("close-sidebar-btn"),
+    n = document.getElementById("sidebar"),
+    o = document.getElementById("sidebar-overlay");
+  function r() {
+    n && o && (n.classList.remove("visible"), o.classList.add("hidden"));
   }
-
-  startOnlineCounter();
-
-  // --- MENU MOBILE ---
-  const menuBtn = document.getElementById("mobile-menu-btn");
-  const closeMenuBtn = document.getElementById("close-sidebar-btn");
-  const sidebar = document.getElementById("sidebar");
-  const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-  function openSidebar() {
-    if (sidebar && sidebarOverlay) {
-      sidebar.classList.add("visible");
-      sidebarOverlay.classList.remove("hidden");
-    }
-  }
-  function closeSidebar() {
-    if (sidebar && sidebarOverlay) {
-      sidebar.classList.remove("visible");
-      sidebarOverlay.classList.add("hidden");
-    }
-  }
-
-  if (menuBtn && closeMenuBtn && sidebar && sidebarOverlay) {
-    menuBtn.addEventListener("click", openSidebar);
-    closeMenuBtn.addEventListener("click", closeSidebar);
-    sidebarOverlay.addEventListener("click", closeSidebar);
-  }
-
-  // --- DADOS DO USUÁRIO ---
-  const token = localStorage.getItem("userToken");
-  const userId = localStorage.getItem("userId");
-
-  // 2. O "segurança". Se não tiver token, volta para o login.
-  /*if (!token || !userId) {
-    alert("Você não está logado. Por favor, faça o login.");
-    window.location.href = "index.html";
-    return;
-  }*/
-
-  // --- EXIBIR NOME E SALDO ---
-  function updateUserDataDisplay() {
-    const nickname = localStorage.getItem("userNickname") || "Jogador";
-    const balance = localStorage.getItem("userWalletBalance") || 0;
+  t &&
+    a &&
+    n &&
+    o &&
+    (t.addEventListener("click", function e() {
+      n && o && (n.classList.add("visible"), o.classList.remove("hidden"));
+    }),
+    a.addEventListener("click", r),
+    o.addEventListener("click", r));
+  let s = localStorage.getItem("userToken"),
+    d = localStorage.getItem("userId");
+  function l() {
+    let e = localStorage.getItem("userNickname") || "Jogador",
+      t = localStorage.getItem("userWalletBalance") || 0;
     try {
-      const formattedBalance = parseFloat(balance).toLocaleString("pt-BR", {
+      let a = parseFloat(t).toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
       });
       document
         .querySelectorAll(".profile-name")
-        .forEach((el) => (el.textContent = nickname));
-      document
-        .querySelectorAll(".welcome-message h1")
-        .forEach((el) => (el.textContent = `Bem-vindo de volta, ${nickname}!`));
-      document
-        .querySelectorAll(
-          "#wallet-balance, #wallet-balance-desktop, .balance-display strong, .balance-values strong"
-        )
-        .forEach((el) => (el.textContent = formattedBalance));
-    } catch (error) {
-      console.error("Erro ao exibir dados do usuário:", error);
+        .forEach((t) => (t.textContent = e)),
+        document
+          .querySelectorAll(".welcome-message h1")
+          .forEach((t) => (t.textContent = `Bem-vindo de volta, ${e}!`)),
+        document
+          .querySelectorAll(
+            "#wallet-balance, #wallet-balance-desktop, .balance-display strong, .balance-values strong"
+          )
+          .forEach((e) => (e.textContent = a));
+    } catch (n) {
+      console.error("Erro ao exibir dados do usu\xe1rio:", n);
     }
   }
-
-  function startWalletPollingNovo(intervalInMs = 5000) {
-    let pollingIntervalId;
-
-    async function atualizarSaldo() {
-      if (!userId || !token) {
-        console.warn("Token ou ID do usuário não encontrado.");
-        updateUserDataDisplay();
+  !(function e(t = 5e3) {
+    let a;
+    async function n() {
+      if (!d || !s) {
+        console.warn("Token ou ID do usu\xe1rio n\xe3o encontrado."), l();
         return;
       }
-
       try {
-        const response = await fetch(
-          `${API_BASE_URL}/api/Game/GetWallet?userId=${userId}`,
-          {
+        let e = await fetch(`${API_BASE_URL}/api/Game/GetWallet?userId=${d}`, {
             method: "GET",
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-
-        const contentType = response.headers.get("content-type");
-        if (
-          !response.ok ||
-          !contentType ||
-          !contentType.includes("application/json")
-        ) {
-          const text = await response.text();
-          throw new Error("Resposta inválida:\n" + text);
+            headers: { Authorization: "Bearer " + s },
+          }),
+          t = e.headers.get("content-type");
+        if (!e.ok || !t || !t.includes("application/json")) {
+          let a = await e.text();
+          throw Error("Resposta inv\xe1lida:\n" + a);
         }
-
-        const data = await response.json();
-        localStorage.setItem("userWalletBalance", data.balance);
-        updateUserDataDisplay();
-      } catch (err) {
-        console.error("Erro ao atualizar saldo:", err.message || err);
-        updateUserDataDisplay();
+        let n = await e.json();
+        localStorage.setItem("userWalletBalance", n.balance), l();
+      } catch (o) {
+        console.error("Erro ao atualizar saldo:", o.message || o), l();
       }
     }
-
-    atualizarSaldo();
-    pollingIntervalId = setInterval(atualizarSaldo, intervalInMs);
-
-    return () => clearInterval(pollingIntervalId);
-  }
-
-  const pararAtualizacao = startWalletPollingNovo();
-
-  // --- LOGOUT ---
-  const logoutButton = document.querySelector(".logout-btn");
-  if (logoutButton) {
-    logoutButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      localStorage.clear();
-      window.location.href = "index.html";
+    return n(), (a = setInterval(n, t)), () => clearInterval(a);
+  })();
+  let i = document.querySelector(".logout-btn");
+  i &&
+    i.addEventListener("click", function (e) {
+      e.preventDefault(),
+        localStorage.clear(),
+        (window.location.href = "index.html");
     });
-  }
-
-  // --- HISTÓRICO (FAKE) ---
-  const historyTableBody = document.getElementById("transaction-history-body");
-  if (historyTableBody) {
-    const fakeTransactionHistory = [
+  let m = document.getElementById("transaction-history-body");
+  m &&
+    ((m.innerHTML = ""),
+    [
       {
-        type: "Depósito",
+        type: "Dep\xf3sito",
         date: "21/06/2025",
-        amount: 50.0,
-        status: "Concluído",
+        amount: 50,
+        status: "Conclu\xeddo",
       },
-      { type: "Saque", date: "20/06/2025", amount: -20.0, status: "Pendente" },
+      { type: "Saque", date: "20/06/2025", amount: -20, status: "Pendente" },
       {
-        type: "Depósito",
+        type: "Dep\xf3sito",
         date: "21/06/2025",
-        amount: 50.0,
-        status: "Concluído",
+        amount: 50,
+        status: "Conclu\xeddo",
       },
-      { type: "Saque", date: "20/06/2025", amount: -20.0, status: "Pendente" },
+      { type: "Saque", date: "20/06/2025", amount: -20, status: "Pendente" },
       {
-        type: "Depósito",
+        type: "Dep\xf3sito",
         date: "21/06/2025",
-        amount: 50.0,
-        status: "Concluído",
+        amount: 50,
+        status: "Conclu\xeddo",
       },
-      { type: "Saque", date: "20/06/2025", amount: -20.0, status: "Pendente" },
+      { type: "Saque", date: "20/06/2025", amount: -20, status: "Pendente" },
       {
-        type: "Depósito",
+        type: "Dep\xf3sito",
         date: "21/06/2025",
-        amount: 50.0,
-        status: "Concluído",
+        amount: 50,
+        status: "Conclu\xeddo",
       },
-      { type: "Saque", date: "20/06/2025", amount: -20.0, status: "Pendente" },
+      { type: "Saque", date: "20/06/2025", amount: -20, status: "Pendente" },
       {
-        type: "Prêmio de Jogo",
+        type: "Pr\xeamio de Jogo",
         date: "19/06/2025",
         amount: 15.5,
-        status: "Concluído",
+        status: "Conclu\xeddo",
       },
-    ];
-    historyTableBody.innerHTML = "";
-    fakeTransactionHistory.forEach((tx) => {
-      const statusClass =
-        {
-          Concluído: "status-completed",
-          Pendente: "status-pending",
-          Cancelado: "status-cancelled",
-        }[tx.status] || "";
-      const amountColorClass = tx.amount < 0 ? "text-danger" : "text-success";
-      historyTableBody.innerHTML += `<tr><td>${tx.type}</td><td>${
-        tx.date
-      }</td><td class="${amountColorClass}">${tx.amount.toLocaleString(
-        "pt-BR",
-        {
+    ].forEach((e) => {
+      const safetype = sanitizeHTML(e.type);
+      let t =
+          {
+            Concluído: "status-completed",
+            Pendente: "status-pending",
+            Cancelado: "status-cancelled",
+          }[e.status] || "",
+        a = e.amount < 0 ? "text-danger" : "text-success";
+      m.innerHTML += `<tr><td>${safetype}</td><td>${
+        e.date
+      }</td><td class="${a}">${e.amount.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      })}</td><td><span class="status ${t}">${e.status}</span></td></tr>`;
+    }));
+  let c = document.getElementById("match-history-list");
+  window.location.pathname.includes("historico") &&
+    c &&
+    ((c.innerHTML = ""),
+    [
+      {
+        gameName: "Xadrez",
+        opponent: "JogadorSombrio",
+        result: "win",
+        amount: 10,
+        date: "21/06/2025",
+      },
+      {
+        gameName: "Aventura Colorida",
+        opponent: "MestreDasCores",
+        result: "loss",
+        amount: -5,
+        date: "20/06/2025",
+      },
+      {
+        gameName: "Xadrez",
+        opponent: "RainhaDoGambito",
+        result: "win",
+        amount: 20,
+        date: "20/06/2025",
+      },
+      {
+        gameName: "Arena dos Campe\xf5es",
+        opponent: "LutadorX",
+        result: "loss",
+        amount: -15,
+        date: "19/06/2025",
+      },
+      {
+        gameName: "Xadrez",
+        opponent: "TorreDeFerro",
+        result: "win",
+        amount: 5,
+        date: "18/06/2025",
+      },
+      {
+        gameName: "Xadrez",
+        opponent: "JogadorSombrio",
+        result: "win",
+        amount: 10,
+        date: "21/06/2025",
+      },
+      {
+        gameName: "Aventura Colorida",
+        opponent: "MestreDasCores",
+        result: "loss",
+        amount: -5,
+        date: "20/06/2025",
+      },
+      {
+        gameName: "Xadrez",
+        opponent: "RainhaDoGambito",
+        result: "win",
+        amount: 20,
+        date: "20/06/2025",
+      },
+      {
+        gameName: "Arena dos Campe\xf5es",
+        opponent: "LutadorX",
+        result: "loss",
+        amount: -15,
+        date: "19/06/2025",
+      },
+      {
+        gameName: "Xadrez",
+        opponent: "TorreDeFerro",
+        result: "win",
+        amount: 5,
+        date: "18/06/2025",
+      },
+    ].forEach((e) => {
+      const safeGameName = sanitizeHTML(e.gameName);
+      const safeOpponent = sanitizeHTML(e.opponent);
+      let t = e.result,
+        a = e.amount > 0 ? "+" : "",
+        n = `
+                    <div class="match-card ${t}">
+                  <div class="match-info">
+                      <span class="game-name">${safeGameName}</span>
+                      <span class="opponent-info">vs ${safeOpponent}</span>
+                  </div>
+                  <div class="match-result">
+                      <strong class="match-amount ${t}">
+                          ${a}${e.amount.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
-        }
-      )}</td><td><span class="status ${statusClass}">${
-        tx.status
-      }</span></td></tr>`;
-    });
-  }
-
-  // ===================================================
-  // LÓGICA DO HISTÓRICO DE PARTIDAS
-  // ===================================================
-
-  const historyListEl = document.getElementById("match-history-list");
-
-  function fetchMatchHistory() {
-    const fakeMatchHistory = [
-      {
-        gameName: "Xadrez",
-        opponent: "JogadorSombrio",
-        result: "win",
-        amount: 10.0,
-        date: "21/06/2025",
-      },
-      {
-        gameName: "Aventura Colorida",
-        opponent: "MestreDasCores",
-        result: "loss",
-        amount: -5.0,
-        date: "20/06/2025",
-      },
-      {
-        gameName: "Xadrez",
-        opponent: "RainhaDoGambito",
-        result: "win",
-        amount: 20.0,
-        date: "20/06/2025",
-      },
-      {
-        gameName: "Arena dos Campeões",
-        opponent: "LutadorX",
-        result: "loss",
-        amount: -15.0,
-        date: "19/06/2025",
-      },
-      {
-        gameName: "Xadrez",
-        opponent: "TorreDeFerro",
-        result: "win",
-        amount: 5.0,
-        date: "18/06/2025",
-      },
-      {
-        gameName: "Xadrez",
-        opponent: "JogadorSombrio",
-        result: "win",
-        amount: 10.0,
-        date: "21/06/2025",
-      },
-      {
-        gameName: "Aventura Colorida",
-        opponent: "MestreDasCores",
-        result: "loss",
-        amount: -5.0,
-        date: "20/06/2025",
-      },
-      {
-        gameName: "Xadrez",
-        opponent: "RainhaDoGambito",
-        result: "win",
-        amount: 20.0,
-        date: "20/06/2025",
-      },
-      {
-        gameName: "Arena dos Campeões",
-        opponent: "LutadorX",
-        result: "loss",
-        amount: -15.0,
-        date: "19/06/2025",
-      },
-      {
-        gameName: "Xadrez",
-        opponent: "TorreDeFerro",
-        result: "win",
-        amount: 5.0,
-        date: "18/06/2025",
-      },
-    ];
-
-    if (historyListEl) {
-      historyListEl.innerHTML = "";
-      fakeMatchHistory.forEach((match) => {
-        const resultClass = match.result;
-        const amountPrefix = match.amount > 0 ? "+" : "";
-
-        const cardHTML = `
-                    <div class="match-card ${resultClass}">
-                        <div class="match-info">
-                            <span class="game-name">${match.gameName}</span>
-                            <span class="opponent-info">vs ${
-                              match.opponent
-                            }</span>
-                        </div>
-                        <div class="match-result">
-                            <strong class="match-amount ${resultClass}">
-                                ${amountPrefix}${match.amount.toLocaleString(
-          "pt-BR",
-          { style: "currency", currency: "BRL" }
-        )}
-                            </strong>
-                            <span class="match-date">${match.date}</span>
-                        </div>
-                    </div>
+        })}
+                      </strong>
+                      <span class="match-date">${sanitizeHTML(e.date)}</span>
+                  </div>
+              </div>
                 `;
-
-        historyListEl.innerHTML += cardHTML;
-      });
-    }
-  }
-
-  if (window.location.pathname.includes("historico")) {
-    fetchMatchHistory();
-  }
-
-  // --- FORMULÁRIO DE CONFIGURAÇÕES ---
-  const settingsForm = document.getElementById("settings-form");
-  if (settingsForm) {
-    settingsForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const newSettings = {
+      c.innerHTML += n;
+    }));
+  let u = document.getElementById("settings-form");
+  u &&
+    u.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let t = {
         nickname: document.getElementById("userNickname").value,
         currentPassword: document.getElementById("current-password").value,
         newPassword: document.getElementById("new-password").value,
         emailNotifications: document.getElementById("email-notifications")
           .checked,
       };
-      if (newSettings.newPassword && !newSettings.currentPassword) {
+      if (t.newPassword && !t.currentPassword) {
         alert("Por favor, insira sua senha atual para definir uma nova.");
         return;
       }
-      alert("Alterações salvas com sucesso! (Simulação)");
+      alert("Altera\xe7\xf5es salvas com sucesso! (Simula\xe7\xe3o)");
     });
-  }
-
-  // ===================================================
-  // LÓGICA DO FORMULÁRIO DE SUPORTE
-  // ===================================================
-  const supportForm = document.getElementById("support-form");
-
-  if (supportForm) {
-    // IMPORTANTE: Insira sua "Public Key" do EmailJS aqui.
-    // Veja o Passo 2 no guia para saber como obter esta chave.
-    emailjs.init({
-      publicKey: "iqzxw-9AGbBVRR8Rk", // <-- TROQUE POR SUA CHAVE
-    });
-
-    supportForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const submitButton = this.querySelector(".btn-save-changes");
-      const originalButtonText = submitButton.textContent;
-      submitButton.disabled = true;
-      submitButton.textContent = "Enviando...";
-
-      // IMPORTANTE:
-      // - Troque 'SEU_SERVICE_ID' pelo ID do seu serviço de e-mail no EmailJS.
-      // - Troque 'SEU_TEMPLATE_ID' pelo ID do seu template de e-mail no EmailJS.
-      // Veja o Passo 2 no guia para obter esses IDs.
-      const serviceID = "service_2fcvb3n";
-      const templateID = "template_td3d41d";
-
-      const templateParams = {
+  let p = document.getElementById("support-form");
+  p &&
+    (emailjs.init({ publicKey: "iqzxw-9AGbBVRR8Rk" }),
+    p.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let t = this.querySelector(".btn-save-changes"),
+        a = t.textContent;
+      (t.disabled = !0), (t.textContent = "Enviando...");
+      let n = {
         from_name: document.getElementById("support-name").value,
         from_email: document.getElementById("support-email").value,
         subject: document.getElementById("support-subject").value,
         message: document.getElementById("support-message").value,
       };
-
       emailjs
-        .send(serviceID, templateID, templateParams)
+        .send("service_2fcvb3n", "template_td3d41d", n)
         .then(
-          (response) => {
-            console.log("SUCCESS!", response.status, response.text);
-            const feedbackEl = document.getElementById("support-feedback");
-            feedbackEl.textContent = "Mensagem enviada com sucesso!";
-            feedbackEl.classList.remove("error");
-            supportForm.reset();
+          (e) => {
+            console.log("SUCCESS!", e.status, e.text);
+            let t = document.getElementById("support-feedback");
+            (t.textContent = "Mensagem enviada com sucesso!"),
+              t.classList.remove("error"),
+              p.reset();
           },
-          (error) => {
-            console.error("FAILED...", error);
-            const feedbackEl = document.getElementById("support-feedback");
-            feedbackEl.textContent =
-              "Erro ao enviar a mensagem. Tente novamente.";
-            feedbackEl.classList.add("error");
+          (e) => {
+            console.error("FAILED...", e);
+            let t = document.getElementById("support-feedback");
+            (t.textContent = "Erro ao enviar a mensagem. Tente novamente."),
+              t.classList.add("error");
           }
         )
         .finally(() => {
-          submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
+          (t.disabled = !1), (t.textContent = a);
         });
-    });
-  }
-
-  // --- MODAL DE DEPÓSITO ---
-  const openDepositBtns = document.querySelectorAll(
-    ".btn-deposit, .btn-deposit-main"
-  );
-  const depositModal1 = document.getElementById("deposit-modal-1");
-  const depositModal2 = document.getElementById("deposit-modal-2");
-
-  if (openDepositBtns.length > 0 && depositModal1 && depositModal2) {
-    const form1 = document.getElementById("deposit-form-1");
-    const amountInput = document.getElementById("deposit-amount");
-    const summaryAmount = document.getElementById("summary-amount");
-    const summaryFee = document.getElementById("summary-fee");
-    const summaryTotal = document.getElementById("summary-total");
-    const paymentTotalValue = document.getElementById("payment-total-value");
-    const pixCodeInput = document.getElementById("pix-copy-paste-code");
-    const copyCodeBtn = document.getElementById("copy-pix-code-btn");
-    const countdownTimerEl = document.getElementById("countdown-timer");
-    const paymentView = document.getElementById("payment-view");
-    const confirmationView = document.getElementById("confirmation-view");
-    let countdownInterval;
-
-    const openModal1 = () => {
-      amountInput.value = "";
-      updateDepositFee(0);
-      depositModal1.classList.remove("hidden");
-    };
-    const closeModal1 = () => depositModal1.classList.add("hidden");
-    const openModal2 = () => {
-      depositModal2.classList.remove("hidden");
-      startTimer(600);
-      paymentView.classList.remove("hidden");
-      confirmationView.classList.add("hidden");
-      depositModal2.querySelector(".close-button").classList.add("hidden");
-    };
-    const closeModal2 = () => {
-      depositModal2.classList.add("hidden");
-      clearInterval(countdownInterval);
-    };
-    if (amountInput) {
-      aplicarMascaraMonetaria(amountInput);
+    }));
+  let g = document.querySelectorAll(".btn-deposit, .btn-deposit-main"),
+    y = document.getElementById("deposit-modal-1"),
+    $ = document.getElementById("deposit-modal-2");
+  if (g.length > 0 && y && $) {
+    let h = document.getElementById("deposit-form-1"),
+      v = document.getElementById("deposit-amount"),
+      E = document.getElementById("summary-amount"),
+      f = document.getElementById("summary-fee"),
+      B = document.getElementById("summary-total"),
+      L = document.getElementById("payment-total-value"),
+      I = document.getElementById("pix-copy-paste-code");
+    document.getElementById("copy-pix-code-btn");
+    let b = document.getElementById("countdown-timer"),
+      w = document.getElementById("payment-view"),
+      C = document.getElementById("confirmation-view"),
+      x,
+      S = () => {
+        (v.value = ""), R(0), y.classList.remove("hidden");
+      },
+      _ = () => y.classList.add("hidden"),
+      k = () => {
+        var e = 600;
+        let t;
+        $.classList.remove("hidden"),
+          (t = 600),
+          clearInterval(x),
+          (x = setInterval(() => {
+            let e = Math.floor(t / 60),
+              a = t % 60;
+            (a = a < 10 ? "0" + a : a),
+              (b.textContent = `Pagamento expira em: ${e}:${a}`),
+              --t < 0 &&
+                (clearInterval(x), (b.textContent = "Tempo esgotado!"));
+          }, 1e3)),
+          w.classList.remove("hidden"),
+          C.classList.add("hidden"),
+          $.querySelector(".close-button").classList.add("hidden");
+      },
+      q = () => {
+        $.classList.add("hidden"), clearInterval(x);
+      };
+    function R(e) {
+      let t = parseFloat(e) || 0,
+        a = 0.01 * t,
+        n = t + a,
+        o = (e) =>
+          e.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+      (E.textContent = o(t)),
+        (f.textContent = o(a)),
+        (B.textContent = o(n)),
+        (L.textContent = o(n));
     }
-
-    function updateDepositFee(amount) {
-      const value = parseFloat(amount) || 0;
-      const feeRate = 0.01;
-      const fee = value * feeRate;
-      const total = value + fee;
-      const formatBRL = (num) =>
-        num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-      summaryAmount.textContent = formatBRL(value);
-      summaryFee.textContent = formatBRL(fee);
-      summaryTotal.textContent = formatBRL(total);
-      paymentTotalValue.textContent = formatBRL(total);
-    }
-
-    function startTimer(durationInSeconds) {
-      let timer = durationInSeconds;
-      clearInterval(countdownInterval);
-      countdownInterval = setInterval(() => {
-        const minutes = Math.floor(timer / 60);
-        let seconds = timer % 60;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        countdownTimerEl.textContent = `Pagamento expira em: ${minutes}:${seconds}`;
-        if (--timer < 0) {
-          clearInterval(countdownInterval);
-          countdownTimerEl.textContent = "Tempo esgotado!";
-        }
-      }, 1000);
-    }
-
-    function startPixPaymentPolling(orderId) {
-      let retries = 600; // tenta por até 600 segundos (10 min)
-      const interval = setInterval(async () => {
-        if (retries-- <= 0) {
-          clearInterval(interval);
-          countdownTimerEl.textContent =
-            "Pagamento não confirmado no tempo esperado.";
+    v && e(v), g.forEach((e) => e.addEventListener("click", S));
+    let M = document.getElementById("close-confirmation-btn");
+    M &&
+      M.addEventListener("click", () => {
+        q();
+      });
+    let D = document.getElementById("simulate-confirm-btn");
+    D &&
+      D.addEventListener("click", () => {
+        w.classList.add("hidden"),
+          C.classList.remove("hidden"),
+          $.querySelector(".close-button").classList.remove("hidden");
+      });
+    let P = $.querySelector(".close-button");
+    P &&
+      P.addEventListener("click", () => {
+        q();
+      }),
+      y.querySelector(".close-button").addEventListener("click", _),
+      document
+        .getElementById("deposit-back-btn-1")
+        .addEventListener("click", _),
+      v.addEventListener("input", (e) => R(e.target.value)),
+      h.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let t = parseFloat(v.value.replace(",", ".")) || 0;
+        if (!t || t < 1) {
+          alert("O valor m\xednimo para dep\xf3sito \xe9 de R$ 1,00.");
           return;
         }
-
-        try {
-          fetch(`${API_BASE_URL}/api/Game/GetWallet?userId=${userId}`, {
-            method: "GET",
-            headers: { Authorization: "Bearer " + token },
-          })
-            .then((response) => {
-              console.log("Status:", response.status);
-              console.log(
-                "Content-Type:",
-                response.headers.get("content-type")
-              );
-              return response.text();
+        let a = h.querySelector(".btn-entrar");
+        (a.disabled = !0),
+          (a.textContent = "Gerando PIX..."),
+          fetch(
+            `${API_BASE_URL}/api/Game/GenerateNewOrder?userId=${d}&value=${t}`,
+            { method: "POST", headers: { Authorization: "Bearer " + s } }
+          )
+            .then((e) =>
+              e.ok
+                ? e.json()
+                : e.json().then((e) => {
+                    throw Error(e.message || "Erro ao gerar pedido PIX.");
+                  })
+            )
+            .then((e) => {
+              I.value = e.pixCopiaECola;
+              let t = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
+                e.pixCopiaECola
+              )}`;
+              (document.getElementById("pix-qr-code-img").src = t),
+                _(),
+                k(),
+                (function e(t) {
+                  let a = 600,
+                    n = setInterval(async () => {
+                      if (a-- <= 0) {
+                        clearInterval(n),
+                          (b.textContent =
+                            "Pagamento n\xe3o confirmado no tempo esperado.");
+                        return;
+                      }
+                      try {
+                        fetch(
+                          `${API_BASE_URL}/api/Game/GetWallet?userId=${d}`,
+                          {
+                            method: "GET",
+                            headers: { Authorization: "Bearer " + s },
+                          }
+                        )
+                          .then(
+                            (e) => (
+                              console.log("Status:", e.status),
+                              console.log(
+                                "Content-Type:",
+                                e.headers.get("content-type")
+                              ),
+                              e.text()
+                            )
+                          )
+                          .then((e) => {
+                            console.log("Resposta bruta:", e);
+                            let t;
+                            try {
+                              t = JSON.parse(e);
+                            } catch {
+                              throw Error("Resposta n\xe3o \xe9 JSON");
+                            }
+                            "confirmed" === t.status
+                              ? (clearInterval(n),
+                                clearInterval(x),
+                                w.classList.add("hidden"),
+                                C.classList.remove("hidden"),
+                                $.querySelector(
+                                  ".close-button"
+                                ).classList.remove("hidden"),
+                                fetchWalletBalance())
+                              : console.log("Status n\xe3o confirmado:", t);
+                          });
+                      } catch (e) {
+                        console.error("Erro ao verificar pagamento:", e);
+                      }
+                    }, 2e3);
+                })(e.orderId);
             })
-            .then((text) => {
-              console.log("Resposta bruta:", text);
-              let result;
-              try {
-                result = JSON.parse(text);
-              } catch {
-                throw new Error("Resposta não é JSON");
-              }
-
-              if (result.status === "confirmed") {
-                clearInterval(interval);
-                clearInterval(countdownInterval);
-                paymentView.classList.add("hidden");
-                confirmationView.classList.remove("hidden");
-                depositModal2
-                  .querySelector(".close-button")
-                  .classList.remove("hidden");
-                fetchWalletBalance();
-              } else {
-                console.log("Status não confirmado:", result);
-              }
+            .catch((e) => {
+              alert(e.message);
+            })
+            .finally(() => {
+              (a.disabled = !1), (a.textContent = "Avan\xe7ar");
             });
-        } catch (err) {
-          console.error("Erro ao verificar pagamento:", err);
-        }
-      }, 2000); // verifica a cada 2 segundos
-    }
-
-    openDepositBtns.forEach((btn) => btn.addEventListener("click", openModal1));
-    // --- BOTÃO "FECHAR" NA CONFIRMAÇÃO DO DEPÓSITO ---
-    const confirmCloseBtnConf = document.getElementById(
-      "close-confirmation-btn"
-    );
-    if (confirmCloseBtnConf) {
-      confirmCloseBtnConf.addEventListener("click", () => {
-        closeModal2();
       });
-    }
-
-    // --- BOTÃO "SIMULAR CONFIRMAÇÃO" ---
-    const simulateConfirmBtn = document.getElementById("simulate-confirm-btn");
-    if (simulateConfirmBtn) {
-      simulateConfirmBtn.addEventListener("click", () => {
-        paymentView.classList.add("hidden");
-        confirmationView.classList.remove("hidden");
-        depositModal2.querySelector(".close-button").classList.remove("hidden");
-      });
-    }
-
-    // --- BOTÃO "FECHAR" NA CONFIRMAÇÃO DO DEPÓSITO ---
-    const confirmCloseBtn = depositModal2.querySelector(".close-button");
-    if (confirmCloseBtn) {
-      confirmCloseBtn.addEventListener("click", () => {
-        closeModal2();
-      });
-    }
-
-    depositModal1
-      .querySelector(".close-button")
-      .addEventListener("click", closeModal1);
-    document
-      .getElementById("deposit-back-btn-1")
-      .addEventListener("click", closeModal1);
-    amountInput.addEventListener("input", (e) =>
-      updateDepositFee(e.target.value)
-    );
-
-    form1.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const depositValue = parseFloat(amountInput.value.replace(",", ".")) || 0;
-
-      if (!depositValue || depositValue < 1) {
-        alert("O valor mínimo para depósito é de R$ 1,00.");
-        return;
-      }
-      const advanceButton = form1.querySelector(".btn-entrar");
-      advanceButton.disabled = true;
-      advanceButton.textContent = "Gerando PIX...";
-
-      fetch(
-        `${API_BASE_URL}/api/Game/GenerateNewOrder?userId=${userId}&value=${depositValue}`,
-        {
-          method: "POST",
-          headers: { Authorization: "Bearer " + token },
-        }
-      )
-        .then((response) => {
-          if (!response.ok)
-            return response.json().then((err) => {
-              throw new Error(err.message || "Erro ao gerar pedido PIX.");
-            });
-          return response.json();
-        })
-        .then((data) => {
-          pixCodeInput.value = data.pixCopiaECola;
-          const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-            data.pixCopiaECola
-          )}`;
-          document.getElementById("pix-qr-code-img").src = qrCodeUrl;
-          closeModal1();
-          openModal2();
-          startPixPaymentPolling(data.orderId);
-        })
-        .catch((error) => {
-          alert(error.message);
-        })
-        .finally(() => {
-          advanceButton.disabled = false;
-          advanceButton.textContent = "Avançar";
-        });
-    });
   }
-
-  // ===================================================
-  // LÓGICA DO MODAL DE SAQUE
-  // ===================================================
-  const openWithdrawButton = document.querySelector(".btn-withdraw");
-  const withdrawModal = document.getElementById("withdraw-modal-overlay");
-
-  if (openWithdrawButton && withdrawModal) {
-    const withdrawForm = document.getElementById("withdraw-form");
-    const withdrawAmountInput = document.getElementById("withdraw-amount");
-    const closeWithdrawButton = withdrawModal.querySelector(".close-button");
-    const withdrawSubmitBtn = document.getElementById("withdraw-submit-btn");
-    const summaryAmount = document.getElementById("withdraw-summary-amount");
-    const summaryFee = document.getElementById("withdraw-summary-fee");
-    const summaryTotal = document.getElementById("withdraw-summary-total");
-
-    const pixKeyInput = document.getElementById("pix-key");
-    if (pixKeyInput) {
-      pixKeyInput.addEventListener("input", () => {
-        const errorMsg = document.getElementById("withdraw-error");
-        if (errorMsg) errorMsg.classList.add("hidden");
-      });
+  let G = document.querySelector(".btn-withdraw"),
+    A = document.getElementById("withdraw-modal-overlay");
+  if (G && A) {
+    let T = document.getElementById("withdraw-form"),
+      N = document.getElementById("withdraw-amount"),
+      z = A.querySelector(".close-button"),
+      H = document.getElementById("withdraw-submit-btn"),
+      X = document.getElementById("withdraw-summary-amount"),
+      W = document.getElementById("withdraw-summary-fee"),
+      j = document.getElementById("withdraw-summary-total"),
+      O = document.getElementById("pix-key");
+    function V() {
+      A.classList.add("hidden");
     }
-    if (withdrawAmountInput) {
-      aplicarMascaraMonetaria(withdrawAmountInput);
+    function J() {
+      let e = (function e() {
+        let t = N.value.trim();
+        if ((t = t.replace(",", ".")).endsWith(".")) return null;
+        let a = parseFloat(t);
+        return isNaN(a) ? null : a;
+      })();
+      if (null === e) return;
+      let t = 0.01 * e,
+        a = (e) =>
+          isNaN(e)
+            ? "R$ 0,00"
+            : e.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+      (X.textContent = a(e)),
+        (W.textContent = a(t)),
+        (j.textContent = a(e - t));
     }
-
-    function openWithdrawModal() {
-      withdrawAmountInput.value = "";
-      updateWithdrawFee();
-      withdrawModal.classList.remove("hidden");
-    }
-
-    function closeWithdrawModal() {
-      withdrawModal.classList.add("hidden");
-    }
-
-    function parseInputValue() {
-      let raw = withdrawAmountInput.value.trim();
-
-      // Substitui vírgula por ponto, para garantir compatibilidade com parseFloat
-      raw = raw.replace(",", ".");
-
-      // Ignora se terminar com ponto (ex: '50.')
-      if (raw.endsWith(".")) return null;
-
-      const parsed = parseFloat(raw);
-      return isNaN(parsed) ? null : parsed;
-    }
-
-    function updateWithdrawFee() {
-      const value = parseInputValue();
-
-      if (value === null) return; // não atualiza se valor incompleto
-
-      const feeRate = 0.01;
-      const fee = value * feeRate;
-      const total = value - fee;
-
-      const formatBRL = (num) =>
-        isNaN(num)
-          ? "R$ 0,00"
-          : num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-      summaryAmount.textContent = formatBRL(value);
-      summaryFee.textContent = formatBRL(fee);
-      summaryTotal.textContent = formatBRL(total);
-    }
-
-    openWithdrawButton.addEventListener("click", openWithdrawModal);
-    closeWithdrawButton.addEventListener("click", closeWithdrawModal);
-    withdrawAmountInput.addEventListener("input", updateWithdrawFee);
-
-    withdrawForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const valueToWithdraw =
-        parseFloat(withdrawAmountInput.value.replace(",", ".")) || 0;
-      const pixKey = document.getElementById("pix-key").value.trim();
-
-      if (!valueToWithdraw || valueToWithdraw < 1) {
-        alert("O valor mínimo para saque é de R$ 1,00.");
-        return;
-      }
-
-      if (!pixKey) {
-        alert("Por favor, informe sua chave PIX para o saque.");
-        return;
-      }
-
-      withdrawSubmitBtn.disabled = true;
-      withdrawSubmitBtn.textContent = "Processando...";
-
-      fetch(
-        `${API_BASE_URL}/api/Game/Withdraw?userId=${userId}&value=${valueToWithdraw}&pixKey=${encodeURIComponent(
-          pixKey
-        )}`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
+    O &&
+      O.addEventListener("input", () => {
+        let e = document.getElementById("withdraw-error");
+        e && e.classList.add("hidden");
+      }),
+      N && e(N),
+      G.addEventListener("click", function e() {
+        (N.value = ""), J(), A.classList.remove("hidden");
+      }),
+      z.addEventListener("click", V),
+      N.addEventListener("input", J),
+      T.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let t = parseFloat(N.value.replace(",", ".")) || 0,
+          a = document.getElementById("pix-key").value.trim();
+        if (!t || t < 1) {
+          alert("O valor m\xednimo para saque \xe9 de R$ 1,00.");
+          return;
         }
-      )
-        .then(async (response) => {
-          if (!response.ok) {
-            const err = await response.json();
-            throw new Error(err.message || "Erro ao processar o saque.");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          alert(data.message || "Saque solicitado com sucesso!");
-          fetchWalletBalance();
-          closeWithdrawModal();
-        })
-        .catch((error) => {
-          const errorMsg = document.getElementById("withdraw-error");
-          if (errorMsg) {
-            errorMsg.textContent = error.message;
-            errorMsg.classList.remove("hidden");
-          } else {
-            alert(error.message);
-          }
-        })
-        .finally(() => {
-          withdrawSubmitBtn.disabled = false;
-          withdrawSubmitBtn.textContent = "Confirmar Saque";
-        });
-    });
+        if (!a) {
+          alert("Por favor, informe sua chave PIX para o saque.");
+          return;
+        }
+        (H.disabled = !0),
+          (H.textContent = "Processando..."),
+          fetch(
+            `${API_BASE_URL}/api/Game/Withdraw?userId=${d}&value=${t}&pixKey=${encodeURIComponent(
+              a
+            )}`,
+            { method: "POST", headers: { Authorization: `Bearer ${s}` } }
+          )
+            .then(async (e) => {
+              if (!e.ok) {
+                let t = await e.json();
+                throw Error(t.message || "Erro ao processar o saque.");
+              }
+              return e.json();
+            })
+            .then((e) => {
+              alert(e.message || "Saque solicitado com sucesso!"),
+                fetchWalletBalance(),
+                V();
+            })
+            .catch((e) => {
+              let t = document.getElementById("withdraw-error");
+              t
+                ? ((t.textContent = e.message), t.classList.remove("hidden"))
+                : alert(e.message);
+            })
+            .finally(() => {
+              (H.disabled = !1), (H.textContent = "Confirmar Saque");
+            });
+      });
   }
 });
-
-// =================================================================
-// --- LÓGICA COMPLETA: MODAL DE INFORMAÇÕES -> TELA DE JOGO ---
-// =================================================================
-
-// Seleciona todos os elementos que vamos usar
-const gameInfoModal = document.getElementById("game-modal");
-const closeModalButton = document.getElementById("close-game-modal");
-const cancelModalButton = document.getElementById("cancel-game-btn");
-const openGameButton = document.getElementById("open-game-btn");
-
-const gameViewContainer = document.getElementById("game-view-container");
-const iframeWrapper = document.getElementById("game-iframe-wrapper");
-const closeGameViewBtn = document.getElementById("close-game-view-btn");
-
-const mainContent = document.querySelector(".dashboard-main-content");
-const sidebar = document.querySelector(".sidebar");
-const mobileHeader = document.querySelector(".mobile-header");
-
-// --- ETAPA 1: Abrir o Modal ao clicar no Card ---
-document.querySelectorAll(".game-card").forEach((card) => {
-  card.addEventListener("click", function (e) {
-    e.preventDefault(); // Impede a navegação padrão
-
-    // Pega os dados do card clicado
-    const title = this.dataset.title;
-    const description = this.dataset.description;
-    const image = this.dataset.image;
-    const gameUrl = this.dataset.url;
-
-    // Preenche o modal com as informações do jogo
-    document.getElementById("game-modal-title").textContent = title;
-    document.getElementById("game-modal-description").innerHTML = description;
-    document.getElementById("game-modal-img").src = image;
-
-    // Guarda a URL do jogo no botão "Abrir Jogo" para usar depois
-    openGameButton.dataset.gameUrl = gameUrl;
-
-    // Mostra o modal
-    gameInfoModal.classList.remove("hidden");
-  });
-});
-
-// --- ETAPA 2: Abrir o Jogo ao clicar no botão do Modal ---
-if (openGameButton) {
-  openGameButton.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    // --- INÍCIO DA NOVA LÓGICA ---
-
-    // 1. Pega os dados do usuário que já estão salvos no navegador
-    const token = localStorage.getItem("userToken");
-    const nickname = localStorage.getItem("userNickname") || "Jogador";
-    const playerID = localStorage.getItem("userId"); // <-- ADICIONADO: Pega o ID do jogador
-
-    // Segurança: Verifica se o token e o ID existem antes de abrir o jogo
-    if (!token || !playerID) {
-      alert("Erro de autenticação. Por favor, faça login novamente.");
-      return;
-    }
-
-    // 2. Pega a URL base do jogo que guardamos no passo anterior
-    const baseUrl = this.dataset.gameUrl;
-
-    // 3. Monta a URL final com os parâmetros, incluindo o playerID
-    // Usamos encodeURIComponent para garantir que nomes com espaços ou caracteres especiais funcionem
-    const finalGameUrl = `${baseUrl}?token=${token}&nickname=${encodeURIComponent(
-      nickname
-    )}&playerID=${playerID}`; // <-- MODIFICADO: Adiciona o playerID à URL
-
-    console.log("Abrindo jogo com a URL:", finalGameUrl); // Ótimo para depuração!
-
-    // --- FIM DA NOVA LÓGICA ---
-
-    gameInfoModal.classList.add("hidden");
-
-    mainContent.classList.add("hidden");
-    sidebar.classList.add("hidden");
-    if (mobileHeader) mobileHeader.classList.add("hidden");
-
-    iframeWrapper.innerHTML = "";
-    const gameIframe = document.createElement("iframe");
-
-    // A única mudança aqui é usar a 'finalGameUrl'
-    gameIframe.src = finalGameUrl;
-
-    iframeWrapper.appendChild(gameIframe);
-
-    gameViewContainer.classList.remove("hidden");
-  });
-}
-
-// --- ETAPA 3: Voltar para o Dashboard ao fechar o Jogo ---
-if (closeGameViewBtn) {
-  closeGameViewBtn.addEventListener("click", () => {
-    // Esconde a tela do jogo
-    gameViewContainer.classList.add("hidden");
-
-    // Mostra o conteúdo do dashboard novamente
-    mainContent.classList.remove("hidden");
-    sidebar.classList.remove("hidden");
-    if (mobileHeader) mobileHeader.classList.remove("hidden");
-
-    // Limpa o iframe para parar o jogo
-    iframeWrapper.innerHTML = "";
-  });
-}
-
-// --- Funções para fechar o MODAL (sem abrir o jogo) ---
+const gameInfoModal = document.getElementById("game-modal"),
+  closeModalButton = document.getElementById("close-game-modal"),
+  cancelModalButton = document.getElementById("cancel-game-btn"),
+  openGameButton = document.getElementById("open-game-btn"),
+  gameViewContainer = document.getElementById("game-view-container"),
+  iframeWrapper = document.getElementById("game-iframe-wrapper"),
+  closeGameViewBtn = document.getElementById("close-game-view-btn"),
+  mainContent = document.querySelector(".dashboard-main-content"),
+  sidebar = document.querySelector(".sidebar"),
+  mobileHeader = document.querySelector(".mobile-header");
 function closeModal() {
   gameInfoModal.classList.add("hidden");
 }
-// Adiciona o evento para os botões 'X' e 'Fechar' do modal
-
-if (closeModalButton) {
-  closeModalButton.addEventListener("click", closeModal);
-}
-if (cancelModalButton) {
-  cancelModalButton.addEventListener("click", closeModal);
-}
+document.querySelectorAll(".game-card").forEach((e) => {
+  e.addEventListener("click", function (e) {
+    e.preventDefault();
+    let t = this.dataset.title,
+      a = this.dataset.description,
+      n = this.dataset.image,
+      o = this.dataset.url;
+    (document.getElementById("game-modal-title").textContent = t),
+      (document.getElementById("game-modal-description").innerHTML = a),
+      (document.getElementById("game-modal-img").src = n),
+      (openGameButton.dataset.gameUrl = o),
+      gameInfoModal.classList.remove("hidden");
+  });
+}),
+  openGameButton &&
+    openGameButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      let t = localStorage.getItem("userToken"),
+        a = localStorage.getItem("userNickname") || "Jogador",
+        n = localStorage.getItem("userId");
+      if (!t || !n) {
+        alert(
+          "Erro de autentica\xe7\xe3o. Por favor, fa\xe7a login novamente."
+        );
+        return;
+      }
+      let o = this.dataset.gameUrl,
+        r = `${o}?token=${t}&nickname=${encodeURIComponent(a)}&playerID=${n}`;
+      console.log("Abrindo jogo com a URL:", r),
+        gameInfoModal.classList.add("hidden"),
+        mainContent.classList.add("hidden"),
+        sidebar.classList.add("hidden"),
+        mobileHeader && mobileHeader.classList.add("hidden"),
+        (iframeWrapper.innerHTML = "");
+      let s = document.createElement("iframe");
+      (s.src = r),
+        iframeWrapper.appendChild(s),
+        gameViewContainer.classList.remove("hidden");
+    }),
+  closeGameViewBtn &&
+    closeGameViewBtn.addEventListener("click", () => {
+      gameViewContainer.classList.add("hidden"),
+        mainContent.classList.remove("hidden"),
+        sidebar.classList.remove("hidden"),
+        mobileHeader && mobileHeader.classList.remove("hidden"),
+        (iframeWrapper.innerHTML = "");
+    }),
+  closeModalButton && closeModalButton.addEventListener("click", closeModal),
+  cancelModalButton && cancelModalButton.addEventListener("click", closeModal);
