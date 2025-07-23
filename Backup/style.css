@@ -731,21 +731,21 @@ a {
   .how-it-works-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
     text-align: left;
   }
   .how-it-works-card svg {
     width: 40px;
     height: 40px;
     color: #00bfff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .how-it-works-card h3 {
-    font-size: 16px;
-    margin-bottom: 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
   }
   .how-it-works-card p {
-    font-size: 14px;
+    font-size: 13px;
     color: #adb5bd;
     line-height: 1.6;
   }
@@ -778,11 +778,11 @@ a {
   padding: 15px;
 }
 .trust-seals .seal {
-  padding: 8px 16px;
+  padding: 0px 16px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  color: #91bfcf;
+  color: #c0c0c0;
 }
 
 /* Feed de Atividades */
