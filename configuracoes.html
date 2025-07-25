@@ -110,6 +110,24 @@
           <section class="settings-section">
             <h2>Perfil</h2>
             <div class="form-grid">
+              <div class="profile-photo-upload">
+                <img
+                  id="profile-image-preview"
+                  src="Imagens/avatar.png"
+                  alt="Avatar padrão"
+                  class="profile-image-preview"
+                />
+                <input
+                  type="file"
+                  id="profile-photo-input"
+                  name="profile-photo"
+                  accept="image/*"
+                  class="hidden-input"
+                />
+                <label for="profile-photo-input" class="btn-upload-photo"
+                  >Escolher Foto</label
+                >
+              </div>
               <div class="input-group">
                 <label for="nickname">Apelido</label>
                 <input
@@ -118,17 +136,17 @@
                   name="nickname"
                   value="nickname"
                 />
-              </div>
-              <div class="input-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value="[email@atual.com]"
-                  disabled
-                />
-                <p class="info-text">O email não pode ser alterado.</p>
+                <div class="input-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="[email@atual.com]"
+                    disabled
+                  />
+                  <p class="info-text">O email não pode ser alterado.</p>
+                </div>
               </div>
             </div>
           </section>

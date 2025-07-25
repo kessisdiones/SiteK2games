@@ -22,6 +22,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     a(), setInterval(a, 4e3);
   })();
+
+  /// 🔹 SEÇÃO 1: Pré-visualizar e salvar imagem de perfil no localStorage
+  const profilePhotoInput = document.getElementById("profile-photo-input");
+  const profileImagePreview = document.getElementById("profile-image-preview");
+  const profileAvatarInSidebar = document.querySelector(".profile-avatar"); // Adicione esta linha para pegar a imagem do menu lateral
+
+  const savedImage = localStorage.getItem("userProfilePhoto");
+  if (savedImage) {
+    // Remova a checagem por profileImagePreview aqui, pois ele pode não estar na página inicial
+    if (profileImagePreview) {
+      // Verifica se o elemento de preview existe
+      profileImagePreview.src = savedImage;
+    }
+    if (profileAvatarInSidebar) {
+      // Aplica a imagem ao avatar no menu lateral
+      profileAvatarInSidebar.src = savedImage;
+    }
+  }
+
+  if (profilePhotoInput && profileImagePreview && profileAvatarInSidebar) {
+    // Adicione profileAvatarInSidebar aqui também
+    profilePhotoInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profileImagePreview.src = e.target.result;
+          profileAvatarInSidebar.src = e.target.result; // Atualiza também o avatar do menu lateral
+          localStorage.setItem("userProfilePhoto", e.target.result); // Salva a imagem
+        };
+        reader.readAsDataURL(file);
+      } else {
+        profileImagePreview.src = "Imagens/avatar.png";
+        profileAvatarInSidebar.src = "Imagens/avatar.jpg"; // Se não houver arquivo, volta para a imagem padrão
+      }
+    });
+  }
+
   let t = document.getElementById("mobile-menu-btn"),
     a = document.getElementById("close-sidebar-btn"),
     n = document.getElementById("sidebar"),
@@ -63,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Erro ao exibir dados do usu\xe1rio:", n);
     }
   }
+  // 🔹 SEÇÃO 3: Atualização periódica do saldo da carteira
   !(function e(t = 5e3) {
     let a;
     async function n() {
@@ -88,14 +127,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return n(), (a = setInterval(n, t)), () => clearInterval(a);
   })();
-  let i = document.querySelector(".logout-btn");
+  let // 🔹 SEÇÃO 4: Logout do usuário
+    i = document.querySelector(".logout-btn");
   i &&
     i.addEventListener("click", function (e) {
       e.preventDefault(),
         localStorage.clear(),
         (window.location.href = "index.html");
     });
-  let m = document.getElementById("transaction-history-body");
+  let // 🔹 SEÇÃO 5: Preenchimento do histórico de transações
+    m = document.getElementById("transaction-history-body");
   m &&
     ((m.innerHTML = ""),
     [
@@ -149,7 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
         currency: "BRL",
       })}</td><td><span class="status ${t}">${e.status}</span></td></tr>`;
     }));
-  let c = document.getElementById("match-history-list");
+  let // 🔹 SEÇÃO 6: Preenchimento do histórico de partidas
+    c = document.getElementById("match-history-list");
   window.location.pathname.includes("historico") &&
     c &&
     ((c.innerHTML = ""),
@@ -248,12 +290,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
       c.innerHTML += n;
     }));
-  let u = document.getElementById("settings-form");
+  let // 🔹 SEÇÃO 2: Formulário de configurações (nickname, senha, notificação por email)
+    u = document.getElementById("settings-form");
   u &&
     u.addEventListener("submit", function (e) {
       e.preventDefault();
       let t = {
-        nickname: document.getElementById("userNickname").value,
+        nickname: document.getElementById("nickname").value, // <-- CORRIGIDO AQUI!
         currentPassword: document.getElementById("current-password").value,
         newPassword: document.getElementById("new-password").value,
         emailNotifications: document.getElementById("email-notifications")
@@ -265,7 +308,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       alert("Altera\xe7\xf5es salvas com sucesso! (Simula\xe7\xe3o)");
     });
-  let p = document.getElementById("support-form");
+  let // 🔹 SEÇÃO 7: Envio de formulário de suporte via EmailJS
+    p = document.getElementById("support-form");
   p &&
     (emailjs.init({ publicKey: "iqzxw-9AGbBVRR8Rk" }),
     p.addEventListener("submit", function (e) {
@@ -300,7 +344,8 @@ document.addEventListener("DOMContentLoaded", function () {
           (t.disabled = !1), (t.textContent = a);
         });
     }));
-  let g = document.querySelectorAll(".btn-deposit, .btn-deposit-main"),
+  let // 🔹 SEÇÃO 8: Depósito via PIX
+    g = document.querySelectorAll(".btn-deposit, .btn-deposit-main"),
     y = document.getElementById("deposit-modal-1"),
     $ = document.getElementById("deposit-modal-2");
   if (g.length > 0 && y && $) {
@@ -464,7 +509,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
       });
   }
-  let G = document.querySelector(".btn-withdraw"),
+  let // 🔹 SEÇÃO 9: Solicitação de saque via PIX
+    G = document.querySelector(".btn-withdraw"),
     A = document.getElementById("withdraw-modal-overlay");
   if (G && A) {
     let T = document.getElementById("withdraw-form"),
@@ -550,6 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
+// 🔹 SEÇÃO 10: Abertura do jogo no iframe e controle do modal
 const gameInfoModal = document.getElementById("game-modal"),
   closeModalButton = document.getElementById("close-game-modal"),
   cancelModalButton = document.getElementById("cancel-game-btn"),

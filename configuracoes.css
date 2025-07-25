@@ -10,7 +10,7 @@
 }
 .wallet-header h1 {
   font-size: 28px;
-  margin: 0 40px;
+  margin: 0 30px;
   margin-top: 30px;
 }
 .settings-section h2 {
@@ -30,6 +30,7 @@
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
+  margin-top: 15px;
   font-size: 14px;
 }
 
@@ -164,6 +165,7 @@ input:checked + .slider:before {
 /* Botão de salvar */
 .form-actions {
   text-align: right;
+  margin-right: 30px;
   margin-top: 20px;
 }
 .btn-save-changes {
@@ -178,6 +180,50 @@ input:checked + .slider:before {
 }
 .btn-save-changes:hover {
   background-color: #009acd;
+}
+
+/* Estilos para a seção de foto de perfil */
+.profile-photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.profile-image-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Faz a imagem ser redonda */
+  object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+  border: 3px solid #00bfff; /* Adiciona uma borda colorida */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hidden-input {
+  display: none; /* Esconde o input de arquivo padrão */
+}
+
+.btn-upload-photo {
+  background-color: #00bfff;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-upload-photo:hover {
+  background-color: #009acd;
+}
+
+/* Responsividade para a seção de foto de perfil */
+@media (max-width: 768px) {
+  .profile-photo-upload {
+    flex-direction: column;
+  }
 }
 
 /* Responsividade */
@@ -202,5 +248,16 @@ input:checked + .slider:before {
     padding: 25px;
 
     margin: 20px auto;
+  }
+  /* Botão de salvar */
+  .form-actions {
+    text-align: right;
+    margin-right: 0px;
+    margin-top: 20px;
+  }
+  .wallet-header h1 {
+    font-size: 28px;
+    margin: 0;
+    margin-top: 30px;
   }
 }

@@ -145,7 +145,7 @@ a {
   overflow: visible;
 }
 .games-swiper .swiper-slide {
-  width: calc(90vw / 5 - 20px);
+  width: calc(90vw / 3 - 20px);
   flex-shrink: 0;
   margin-right: 20px;
   box-sizing: border-box;
@@ -711,11 +711,11 @@ a {
     height: 100%;
     padding-bottom: 30px;
     margin: 10px auto 0;
-    width: 127%;
-    justify-content: flex-start !important;
+    width: 120%;
+    justify-content: center !important;
   }
   .games-section {
-    width: 98%;
+    width: 100%;
     margin: 5px auto;
   }
   .games-section h2 {

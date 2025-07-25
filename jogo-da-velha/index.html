@@ -12,8 +12,6 @@
       <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
-        <div id="game-title-logo"></div>
-        <div id="loading-text">CARREGANDO</div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
@@ -120,6 +118,22 @@
             document.querySelector("#unity-fullscreen-button").onclick = () => {
               unityInstance.SetFullscreen(1);
             };
+
+            unityInstance.SendMessage(
+              "GameManager",
+              "SetPlayerId",
+              localStorage.getItem("userId")
+            );
+            unityInstance.SendMessage(
+              "GameManager",
+              "SetPlayerName",
+              localStorage.getItem("userNickname")
+            );
+            unityInstance.SendMessage(
+              "GameManager",
+              "SetToken",
+              localStorage.getItem("userToken")
+            );
           })
           .catch((message) => {
             alert(message);

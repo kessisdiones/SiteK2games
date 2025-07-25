@@ -74,8 +74,8 @@ body {
   margin-bottom: 5px;
 }
 .profile-avatar {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -186,7 +186,7 @@ body {
 .dashboard-header {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   background: linear-gradient(45deg, #223e4a, #0c161a);
   border-radius: 0;
   padding: 10px 20px;
@@ -244,16 +244,16 @@ body {
   background-color: #009acd;
 }
 .games-section {
-  margin-top: 40px;
+  margin-top: 5px;
 }
 .games-section h2 {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 .game-card-wrapper {
@@ -397,7 +397,7 @@ body {
   color: #2f9e44;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .dashboard-main-content {
     padding: 20px;
     margin-left: 0;
@@ -517,10 +517,7 @@ body {
     align-items: center;
   }
   .close-game-button {
-    padding: 8px 14px;
-    font-size: 13px;
-    top: 8px;
-    right: 8px;
+    display: none;
   }
   #game-view-container {
     padding-top: 0;
@@ -552,7 +549,7 @@ body {
   cursor: pointer;
   position: absolute;
   top: 15px;
-  right: 20px;
+  left: 20px;
   z-index: 1001;
   transition: background-color 0.3s;
 }

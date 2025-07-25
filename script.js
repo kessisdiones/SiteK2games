@@ -213,6 +213,7 @@ window.addEventListener("load", initGamesSwiper),
             o = 11 === q.unmaskedValue.length,
             r = 11 === j.unmaskedValue.length,
             n = k.checked;
+
           if (
             (L.value.length > 0
               ? (L.style.borderColor = t ? "#3E4553" : "#E03131")
@@ -220,14 +221,21 @@ window.addEventListener("load", initGamesSwiper),
             e.length > 0)
           ) {
             let s = a <= 2;
-            (S.style.borderColor = s ? "#3E4553" : "#E03131"),
-              s
-                ? S.setCustomValidity("")
-                : (S.setCustomValidity(
-                    "O nome deve conter no m\xe1ximo duas palavras."
-                  ),
-                  S.reportValidity());
-          } else (S.style.borderColor = "#3E4553"), S.setCustomValidity("");
+
+            S.style.borderColor = s ? "#3E4553" : "#E03131";
+
+            if (!s) {
+              S.setCustomValidity(
+                "O nome deve conter no máximo duas palavras."
+              );
+              S.reportValidity();
+            } else {
+              S.setCustomValidity("");
+            }
+          } else {
+            S.style.borderColor = "#3E4553";
+            S.setCustomValidity("");
+          }
           B.disabled = !(t && o && r && n && a <= 2);
         }
         I.addEventListener("input", A),
@@ -251,19 +259,33 @@ window.addEventListener("load", initGamesSwiper),
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(t),
               })
-                .then((e) =>
-                  e.ok
-                    ? e.text()
-                    : e.json().then((e) => {
-                        throw Error(
-                          sanitizeHTML(e.message) || "Erro ao criar conta."
-                        );
-                      })
-                )
+                .then(async (response) => {
+                  const raw = await response.text(); // ← lê só uma vez!
+
+                  if (response.ok) {
+                    return raw;
+                  } else {
+                    let errorMessage = "Erro ao criar conta.";
+                    try {
+                      const json = JSON.parse(raw);
+                      errorMessage = json.message || errorMessage;
+                    } catch {
+                      errorMessage = raw; // usa a mensagem direta se não for JSON
+                    }
+
+                    // Tradução opcional
+                    if (errorMessage.includes("Email already exists")) {
+                      errorMessage = "Este e-mail já está cadastrado.";
+                    }
+
+                    throw Error(sanitizeHTML(errorMessage));
+                  }
+                })
+
                 .then(() => {
                   _ &&
                     ((_.textContent =
-                      "Conta criada com sucesso! Fa\xe7a login para continuar."),
+                      "Conta criada com sucesso! Faça login para continuar."),
                     _.classList.remove("hidden"),
                     (_.style.color = "#2ecc71")),
                     setTimeout(() => {
@@ -324,7 +346,7 @@ window.addEventListener("load", initGamesSwiper),
                 (a.disabled = !1), (a.textContent = t);
               });
           }))
-        : console.error("A biblioteca EmailJS n\xe3o foi carregada."));
+        : console.error("A biblioteca EmailJS não foi carregada."));
 
     // Feed de Atividade em Tempo Real
     const activityFeed = document.getElementById("activity-feed");
