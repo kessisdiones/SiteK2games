@@ -414,15 +414,15 @@ a {
   font-weight: 600;
 }
 .game-info-content {
-  width: 600px;
+  width: 50%;
   max-width: 95vw;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 .modal-image {
-  width: 195px;
-  height: 270px;
+  width: auto;
+  height: 180px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -724,7 +724,7 @@ a {
     margin-bottom: 10px;
   }
   .games-swiper .swiper-slide {
-    width: 120px;
+    width: 220px;
     height: 100%;
     flex-shrink: 0;
   }

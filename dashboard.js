@@ -42,16 +42,51 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (profilePhotoInput && profileImagePreview && profileAvatarInSidebar) {
-    // Adicione profileAvatarInSidebar aqui também
     profilePhotoInput.addEventListener("change", function () {
       const file = this.files[0];
       if (file) {
         const reader = new FileReader();
+
         reader.onload = function (e) {
-          profileImagePreview.src = e.target.result;
-          profileAvatarInSidebar.src = e.target.result; // Atualiza também o avatar do menu lateral
-          localStorage.setItem("userProfilePhoto", e.target.result); // Salva a imagem
+          // --- INÍCIO DA OTIMIZAÇÃO ---
+
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.createElement("canvas");
+            const MAX_WIDTH_HEIGHT = 128; // Define o tamanho máximo para o avatar
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH_HEIGHT) {
+                height *= MAX_WIDTH_HEIGHT / width;
+                width = MAX_WIDTH_HEIGHT;
+              }
+            } else {
+              if (height > MAX_WIDTH_HEIGHT) {
+                width *= MAX_WIDTH_HEIGHT / height;
+                height = MAX_WIDTH_HEIGHT;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Gera um novo Data URL, usando JPEG com 70% de qualidade
+            // O formato JPEG é geralmente menor para fotos.
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+
+            // --- FIM DA OTIMIZAÇÃO ---
+
+            // Salva e exibe a imagem otimizada
+            profileImagePreview.src = dataUrl;
+            profileAvatarInSidebar.src = dataUrl;
+            localStorage.setItem("userProfilePhoto", dataUrl); // Salva a imagem otimizada
+          };
+          img.src = e.target.result; // Carrega a imagem original para o processo de otimização
         };
+
         reader.readAsDataURL(file);
       } else {
         profileImagePreview.src = "Imagens/avatar.png";
@@ -423,8 +458,8 @@ document.addEventListener("DOMContentLoaded", function () {
       h.addEventListener("submit", (e) => {
         e.preventDefault();
         let t = parseFloat(v.value.replace(",", ".")) || 0;
-        if (!t || t < 1) {
-          alert("O valor m\xednimo para dep\xf3sito \xe9 de R$ 1,00.");
+        if (!t || t < 20) {
+          alert("O valor m\xednimo para dep\xf3sito \xe9 de R$ 20,00.");
           return;
         }
         let a = h.querySelector(".btn-entrar");
@@ -556,8 +591,8 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         let t = parseFloat(N.value.replace(",", ".")) || 0,
           a = document.getElementById("pix-key").value.trim();
-        if (!t || t < 1) {
-          alert("O valor m\xednimo para saque \xe9 de R$ 1,00.");
+        if (!t || t < 20) {
+          alert("O valor m\xednimo para saque \xe9 de R$ 20,00.");
           return;
         }
         if (!a) {
@@ -630,32 +665,49 @@ document.querySelectorAll(".game-card").forEach((e) => {
       let t = localStorage.getItem("userToken"),
         a = localStorage.getItem("userNickname") || "Jogador",
         n = localStorage.getItem("userId");
+
+      // --- INÍCIO DA MODIFICAÇÃO ---
+      // 1. Recupere a imagem de perfil do localStorage
+      let userProfilePhoto = localStorage.getItem("userProfilePhoto");
+      // --- FIM DA MODIFICAÇÃO ---
+
       if (!t || !n) {
-        alert(
-          "Erro de autentica\xe7\xe3o. Por favor, fa\xe7a login novamente."
-        );
+        alert("Erro de autenticação. Por favor, faça login novamente.");
         return;
       }
-      let o = this.dataset.gameUrl,
-        r = `${o}?token=${t}&nickname=${encodeURIComponent(a)}&playerID=${n}`;
-      console.log("Abrindo jogo com a URL:", r),
-        gameInfoModal.classList.add("hidden"),
-        mainContent.classList.add("hidden"),
-        sidebar.classList.add("hidden"),
-        mobileHeader && mobileHeader.classList.add("hidden"),
-        (iframeWrapper.innerHTML = "");
+
+      let o = this.dataset.gameUrl;
+
+      // --- INÍCIO DA MODIFICAÇÃO ---
+      // 2. Construa a URL base
+      let r = `${o}?token=${t}&nickname=${encodeURIComponent(a)}&playerID=${n}`;
+
+      // 3. Adicione a imagem à URL, se ela existir
+      if (userProfilePhoto) {
+        // É CRUCIAL usar encodeURIComponent para a string Base64
+        r += `&profileImage=${encodeURIComponent(userProfilePhoto)}`;
+      }
+      // --- FIM DA MODIFICAÇÃO ---
+
+      console.log("Abrindo jogo com a URL:", r); // O link agora pode conter a imagem
+      gameInfoModal.classList.add("hidden");
+      mainContent.classList.add("hidden");
+      sidebar.classList.add("hidden");
+      mobileHeader && mobileHeader.classList.add("hidden");
+
+      iframeWrapper.innerHTML = "";
       let s = document.createElement("iframe");
-      (s.src = r),
+      (s.src = r), // A URL completa é usada aqui
         iframeWrapper.appendChild(s),
         gameViewContainer.classList.remove("hidden");
-    }),
-  closeGameViewBtn &&
-    closeGameViewBtn.addEventListener("click", () => {
-      gameViewContainer.classList.add("hidden"),
-        mainContent.classList.remove("hidden"),
-        sidebar.classList.remove("hidden"),
-        mobileHeader && mobileHeader.classList.remove("hidden"),
-        (iframeWrapper.innerHTML = "");
-    }),
+    });
+closeGameViewBtn &&
+  closeGameViewBtn.addEventListener("click", () => {
+    gameViewContainer.classList.add("hidden"),
+      mainContent.classList.remove("hidden"),
+      sidebar.classList.remove("hidden"),
+      mobileHeader && mobileHeader.classList.remove("hidden"),
+      (iframeWrapper.innerHTML = "");
+  }),
   closeModalButton && closeModalButton.addEventListener("click", closeModal),
   cancelModalButton && cancelModalButton.addEventListener("click", closeModal);

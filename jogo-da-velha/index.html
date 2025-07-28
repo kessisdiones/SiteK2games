@@ -12,6 +12,9 @@
       <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
+        <div id="loading-text">
+          <h2>CARREGANDO...</h2>
+        </div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
@@ -19,7 +22,7 @@
       <div id="unity-warning"></div>
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
+        <div id="unity-fullscreen-button">&#x26F6;</div>
         <div id="unity-build-title">FrontVelha</div>
       </div>
     </div>
@@ -100,8 +103,8 @@
         // config.devicePixelRatio = 1;
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "auto";
+        canvas.style.height = "100%";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
